@@ -11,13 +11,13 @@ router.post('/', (req, res) => {
     const vars = req.body;
 
     const data = {
-        UserId: vars.id,
+        CustomerId: vars.id,
         Password: vars.password,
-        UserName: vars.name,
+        Name: vars.name,
         Email: vars.email
     };
 
-    insertSql.setUser(data);
+    insertSql.setCustomer(data);
     res.redirect('/signIn');
 });
 module.exports = router;

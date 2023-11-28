@@ -6,6 +6,8 @@ import expressSession from "express-session";
 import homeRouter from './routes/home';
 import sensorRouter from './routes/sensor';
 
+import signUpRouter from './routes/signUp';
+
 const expressSanitizer = require("express-sanitizer");
 
 // fs and https 모듈 가져오기
@@ -43,6 +45,7 @@ app.use(logger('dev'));
 
 app.use('/', homeRouter);
 app.use('/sensor', sensorRouter);
+app.use('/signUp', signUpRouter);
 
 // http 서버는 8000번 포트로 실행
 app.listen(PORT, () => {

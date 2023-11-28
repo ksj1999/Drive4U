@@ -37,14 +37,14 @@ export const selectSql = {
 
 // insert query
 export const insertSql = {
-    setEmployees:async (data) => {
+    setEmployee:async (data) => {
         const sql = `insert into Employees(EmployeeId, Password, Name, Email, RegDate) values (
             "${data.EmployeeId}",  "${data.Password}",  "${data.Name}", "${data.Email}", now()
         )`
         console.log(data);
         await promisePool.query(sql);
     },
-    setCustomers: async(data) => {
+    setCustomer: async(data) => {
         const sql = `insert into Customers(CustomerId, Password, Name, Email, RegDate) values (
             "${data.CustomerId}",  "${data.Password}", 
              "${data.Name}", "${data.Email}", now()
