@@ -34,9 +34,6 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
 
-    <!-- Bootstrap.min.css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-
     <!-- Bootsnav -->
     <link rel="stylesheet" href="css/bootsnav.css">
 
@@ -80,74 +77,47 @@
         <!-- Top-area End -->
     </section><!--/.welcome-hero-->
     <!-- Welcome-hero end -->
-    <!-- New-cars section -->
-    <section id="new-cars" class="new-cars">
-        <div class="container">
-            <div class="section-header">
-                <h2>Sign In</h2>
+
+<!--service start -->
+<section id="service" class="service">
+    <div class="container">
+        <div class="service-content">
+            <div class="row">
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-service-item">
+                        <div class="single-service-icon">
+                            <i class="flaticon-car-1"></i>
+                        </div>
+                        <h2>
+                            <a href="https://dashboard-trainingapps-eks004.sa.wise-paas.com/frame/PeterPet?orgId=2300&language=en&theme=light">
+                                Dashboard
+                            </a>
+                        </h2>
+                        <p>
+                            고객 및 보유차량 관리
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-service-item">
+                        <div class="single-service-icon">
+                            <i class="flaticon-car-repair"></i>
+                        </div>
+                        <h2><a href="/regOwner?userId=<%= userId %>"> Register New Car</a></h2>
+                        <p>
+                            새로운 차량 등록하기
+                        </p>
+                    </div>
+                </div>
+
             </div>
-            {{!--  customer와 admin 중 하나 선택 --}}
-            <div class="radio-group">
-              <form>
-                <label for="userType">Select user type:</label>
-                <input type="radio" id="admin" name="userType" value="admin" checked>
-                <label for="admin" class="toggle-label">Admin</label>
-
-                <input type="radio" id="customer" name="userType" value="customer">
-                <label for="customer" class="toggle-label-customer">Customer</label>
-              </form>
-            </div>
-
-            <div id="adminForm" style="display: block;">
-                <form id="user" method="post" action='/signIn'>
-
-                    <label for="id">Employee ID</label>
-                    <input id="id" name="id" type="text" required placeholder="Your ID">
-
-                    <label for="password">Password</label>
-                    <input id="passwd" name='password' type="password" required placeholder="Your Password">
-                    <button type="submit" class="btn1">Sign In</button>
-                </form>
-            </div>
-            <div id="customerForm" style="display: none;">
-                <form id="user" method="post" action='/signInCustomer'>
-
-                    <label for="id">ID</label>
-                    <input id="id" name="id" type="text" required placeholder="Your ID">
-
-                    <label for="password">Password</label>
-                    <input id="passwd" name='password' type="password" required placeholder="Your Password">
-                    <button type="submit" class="btn1">Sign In</button>
-                </form>
-            </div>
-
-            {{!-- 둘 중 하나의 form 태그만 나오도록 하는 JS --}}
-            <script>
-                const adminRadio = document.getElementById('admin');
-                const customerRadio = document.getElementById('customer');
-                const adminForm = document.getElementById('adminForm');
-                const customerForm = document.getElementById('customerForm');
-
-                adminRadio.addEventListener('change', () => {
-                    if (adminRadio.checked) {
-                        adminForm.style.display = 'block';
-                        customerForm.style.display = 'none';
-                    }
-                });
-
-                customerRadio.addEventListener('change', () => {
-                    if (customerRadio.checked) {
-                        adminForm.style.display = 'none';
-                        customerForm.style.display = 'block';
-                    }
-                });
-            </script>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
-    <!-- end contact section -->
+    </div><!--/.container-->
+</section><!--/.service-->
+<!--service end-->
+
 
 
     <!-- jQery -->
@@ -156,3 +126,4 @@
     <script src="js/custom.js"></script>
   </body>
 </html>
+

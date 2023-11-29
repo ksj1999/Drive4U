@@ -346,20 +346,24 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
 /*-------------------------------------
         5. Service 
 --------------------------------------*/
-.service { padding: 260px 0 87px;}
+.service {
+    padding: 270px 0; /* 수정된 값 */
+}
 
-.single-service-item{
+.single-service-item {
     text-align: center;
-    padding:55px 30px 60px;
+    padding: 30px;
     border-radius: 3px;
     margin-bottom: 30px;
+    width: 100%;
     border: 1px solid #dadfe9;
-    -webkit-transition: .3s linear; 
-    -moz-transition:.3s linear; 
-    -ms-transition:.3s linear; 
-    -o-transition:.3s linear;
+    -webkit-transition: .3s linear;
+    -moz-transition: .3s linear;
+    -ms-transition: .3s linear;
+    -o-transition: .3s linear;
     transition: .3s linear;
 }
+
 
 .single-service-icon {
     display: inline-block;
@@ -778,4 +782,39 @@ input {
 
 .btn1:hover {
     background-color: #0102fa;
+}
+
+/* CSS 추가 또는 수정 부분 */
+.radio-group {
+    display: flex;
+    flex-direction: row; /* 가로로 배치 */
+    align-items: center; /* 수직 중앙 정렬 */
+    margin-top: 50px;
+}
+
+.toggle-label,
+.toggle-label-customer {
+    margin-right: 10px; /* 각 토글 사이의 간격 조절 */
+}
+
+#adminForm,
+#customerForm {
+    display: inline-block; /* 가로 정렬을 위해 인라인 블록으로 설정 */
+    margin-top: 10px; /* 폼 간 간격 조절 */
+}
+
+#adminForm label,
+#customerForm label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* 라벨 간 간격 조절 */
+}
+
+
+.center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
 }
