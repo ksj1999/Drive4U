@@ -33,13 +33,6 @@ export const selectSql = {
         const [result] = await promisePool.query(sql);
         return result;
     },
-    getEmployeeFromId: async(data) => {
-        const sql = `select ID from employees 
-        where EmployeeId="${data.EmployeeId}")
-        `
-        const [result] = await promisePool.query(sql);
-        return result;
-    },
 }
 
 // insert query
@@ -74,13 +67,12 @@ export const insertSql = {
 
     setCar: async (data) => {
         const sql = `
-            INSERT INTO Cars(RegDate, CarType)
-            VALUES (NOW(), ?);
+            INSERT INTO Cars(CarName, CarType, RegDate)
+            VALUES (?,?,NOW());
         `;
     
         try {
-            const [result] = await promisePool.query(sql, [data.CarType]);
-            return result.insertId;
+            await promisePool.query(sql, [data.CarName, data.CarType]);
         } catch (error) {
             console.error('Error inserting car:', error.message);
             throw error; 
@@ -89,12 +81,13 @@ export const insertSql = {
     
     setCarcare: async (data) => {
         const sql = `
-            INSERT INTO CarCare(CarId, EmployeeId)
+            INSERT INTO CarCare(CarName, EmployeeID)
             VALUES (?, ?);
         `;
     
         try {
-            await promisePool.query(sql, [data.CarId, data.EmployeeId]);
+            await promisePool.query(sql, [data.CarName, data.EmployeeID]);
+            console.log(data.EmployeeID)
         } catch (error) {
             console.error('Error inserting car care record:', error.message);
             throw error; 

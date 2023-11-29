@@ -1,63 +1,68 @@
+-- Employees 테이블
 CREATE TABLE Employees (
-    ID INT NOT NULL AUTO_INCREMENT,
-    EmployeeId VARCHAR(45) NOT NULL,
+    EmployeeID VARCHAR(45) NOT NULL,
     Password VARCHAR(45) NOT NULL,
     Name VARCHAR(45) NOT NULL,
     Email VARCHAR(45) NOT NULL,
     RegDate DATETIME,
-    PRIMARY KEY (ID)
+    PRIMARY KEY (EmployeeID)
 );
 
+-- Customers 테이블
 CREATE TABLE Customers (
-    ID INT NOT NULL AUTO_INCREMENT,
-    CustomerId VARCHAR(45) NOT NULL,
+    CustomerID VARCHAR(45) NOT NULL,
     Password VARCHAR(45) NOT NULL,
     Name VARCHAR(45) NOT NULL,
     Email VARCHAR(45) NOT NULL,
     RegDate DATETIME,
-    DriveScore INT default 0,
-    DriveTime int default 0,
-    PRIMARY KEY (ID)
+    DriveScore INT DEFAULT 0,
+    DriveTime INT DEFAULT 0,
+    PRIMARY KEY (CustomerID)
 );
-
+-- Cars 테이블
 CREATE TABLE Cars (
-    ID INT NOT NULL AUTO_INCREMENT,
+    CarID INT NOT NULL AUTO_INCREMENT,
+    CarName VARCHAR(45) NOT NULL,
     RegDate DATETIME,
     CarType VARCHAR(45) NULL,
-    PRIMARY KEY (ID)
+    PRIMARY KEY (CarID),
+    UNIQUE KEY (CarName)
 );
 
-
+-- CarCare 테이블
 CREATE TABLE CarCare (
-    CarId INT NOT NULL, 
-    EmployeeId INT NOT NULL,
-    PRIMARY KEY (CarId, EmployeeId),
-    FOREIGN KEY (CarId) REFERENCES Cars(ID),
-    FOREIGN KEY (EmployeeId) REFERENCES Employees(ID)
+    CarCareID INT NOT NULL AUTO_INCREMENT,
+    CarName VARCHAR(45) NOT NULL,
+    EmployeeID VARCHAR(45) NOT NULL,
+    PRIMARY KEY (CarCareID),
+    FOREIGN KEY (CarName) REFERENCES Cars(CarName),
+    FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
 );
 
-
+-- Rentals 테이블
 CREATE TABLE Rentals (
-    RentalId INT NOT NULL AUTO_INCREMENT,
-    CustomerId INT NOT NULL,
-    CarId INT NOT NULL,
+    RentalID INT NOT NULL AUTO_INCREMENT,
+    CustomerID VARCHAR(45) NOT NULL,
+    CarName VARCHAR(45) NOT NULL,
     StartTime DATETIME,
     EndTime DATETIME,
-    PRIMARY KEY (RentalId),
-    FOREIGN KEY (CustomerId) REFERENCES Customers(ID),
-    FOREIGN KEY (CarId) REFERENCES Cars(ID)
+    PRIMARY KEY (RentalID),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    FOREIGN KEY (CarName) REFERENCES Cars(CarName)
 );
 
+-- CarSensorLinks 테이블
 CREATE TABLE CarSensorLinks (
-    SensorId INT NOT NULL AUTO_INCREMENT,
-    CarId INT NOT NULL,
-    PRIMARY KEY (SensorId),
-    FOREIGN KEY (CarId) REFERENCES Cars(ID)
+    SensorID INT NOT NULL AUTO_INCREMENT,
+    CarName VARCHAR(45) NOT NULL,
+    PRIMARY KEY (SensorID),
+    FOREIGN KEY (CarName) REFERENCES Cars(CarName)
 );
 
+-- SensorData 테이블
 CREATE TABLE SensorData (
     time DATETIME NOT NULL,
-    SensorId INT NOT NULL,
+    SensorID INT NOT NULL,
     ax FLOAT NULL,
     ay FLOAT NULL,
     az FLOAT NULL,
@@ -67,26 +72,27 @@ CREATE TABLE SensorData (
     decibel FLOAT NULL,
     temp FLOAT NULL,
     humi FLOAT NULL,
-    PRIMARY KEY (time),
-    FOREIGN KEY (SensorId) REFERENCES CarSensorLinks(SensorId)
+    PRIMARY KEY (time, SensorID),
+    FOREIGN KEY (SensorID) REFERENCES CarSensorLinks(SensorID)
 );
 
-CREATE TABLE DriveList(
-    ID INT NOT NULL AUTO_INCREMENT,
-    CustomerId INT NOT NULL,
-    RentalId INT,
-    RentalTime DATETIME, 
+-- DriveList 테이블
+CREATE TABLE DriveList (
+    DriveID INT NOT NULL AUTO_INCREMENT,
+    CustomerID VARCHAR(45) NOT NULL,
+    RentalID INT NOT NULL,
+    RentalTime DATETIME,
     RentalDistance FLOAT DEFAULT 0,
     RecklessDriving INT DEFAULT 0,
     SuddenAccel INT DEFAULT 0,
     RapidAccel INT DEFAULT 0,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (CustomerId) REFERENCES Customers(ID),
-    FOREIGN KEY (RentalId) REFERENCES Rentals(RentalId)
+    PRIMARY KEY (DriveID),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    FOREIGN KEY (RentalID) REFERENCES Rentals(RentalID)
 );
 
 -- Employees 테이블에 데이터 삽입
-INSERT INTO Employees (EmployeeId, Password, Name, Email, RegDate)
+INSERT INTO Employees (EmployeeID, Password, Name, Email, RegDate)
 VALUES
     ('emp1', 'pd1', 'John Doe', 'john@example.com', NOW()),
     ('emp2', 'pd2', 'Jane Doe', 'jane@example.com', NOW()),
@@ -95,52 +101,52 @@ VALUES
     ('emp5', 'pd5', 'Charlie Brown', 'charlie@example.com', NOW());
 
 -- Customers 테이블에 데이터 삽입
-INSERT INTO Customers (CustomerId, Password, Name, Email, RegDate)
+INSERT INTO Customers (CustomerID, Password, Name, Email, RegDate, DriveScore, DriveTime)
 VALUES
-    ('cust1', 'pd1', 'David Lee', 'david@example.com', NOW()),
-    ('cust2', 'pd2', 'Emily Wang', 'emily@example.com', NOW()),
-    ('cust3', 'pd3', 'Michael Kim', 'michael@example.com', NOW()),
-    ('cust4', 'pd4', 'Sophia Chen', 'sophia@example.com', NOW()),
-    ('cust5', 'pd5', 'Daniel Park', 'daniel@example.com', NOW());
+    ('cust1', 'pd1', 'David Lee', 'david@example.com', NOW(), 0, 0),
+    ('cust2', 'pd2', 'Emily Wang', 'emily@example.com', NOW(), 0, 0),
+    ('cust3', 'pd3', 'Michael Kim', 'michael@example.com', NOW(), 0, 0),
+    ('cust4', 'pd4', 'Sophia Chen', 'sophia@example.com', NOW(), 0, 0),
+    ('cust5', 'pd5', 'Daniel Park', 'daniel@example.com', NOW(), 0, 0);
 
 -- Cars 테이블에 데이터 삽입
-INSERT INTO Cars (CarType, RegDate)
+INSERT INTO Cars (CarName, RegDate, CarType)
 VALUES
-    ('Sedan', NOW()),
-    ('SUV', NOW()),
-    ('Truck', NOW()),
-    ('Hatchback', NOW()),
-    ('Convertible', NOW());
+    ('Car1', NOW(), 'Sedan'),
+    ('Car2', NOW(), 'SUV'),
+    ('Car3', NOW(), 'Truck'),
+    ('Car4', NOW(), 'Hatchback'),
+    ('Car5', NOW(), 'Convertible');
 
 -- CarCare 테이블에 데이터 삽입
-INSERT INTO CarCare (CarId, EmployeeId)
+INSERT INTO CarCare (CarName, EmployeeID)
 VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3),
-    (4, 4),
-    (5, 5);
+    ('Car1', 'emp1'),
+    ('Car2', 'emp2'),
+    ('Car3', 'emp3'),
+    ('Car4', 'emp4'),
+    ('Car5', 'emp5');
 
 -- Rentals 테이블에 데이터 삽입 (StartTime을 현재 시간에서 4시간 전으로 설정)
-INSERT INTO Rentals (CustomerId, CarId, StartTime, EndTime)
+INSERT INTO Rentals (CustomerID, CarName, StartTime, EndTime)
 VALUES
-    (1, 1, DATE_SUB(NOW(), INTERVAL 4 HOUR), NOW()),
-    (2, 2, DATE_SUB(NOW(), INTERVAL 3 HOUR), NOW()),
-    (3, 3, DATE_SUB(NOW(), INTERVAL 5 HOUR), NOW()),
-    (4, 4, DATE_SUB(NOW(), INTERVAL 6 HOUR), NOW()),
-    (5, 5, DATE_SUB(NOW(), INTERVAL 7 HOUR), NOW());
+    ('cust1', 'Car1', DATE_SUB(NOW(), INTERVAL 4 HOUR), NOW()),
+    ('cust2', 'Car2', DATE_SUB(NOW(), INTERVAL 3 HOUR), NOW()),
+    ('cust3', 'Car3', DATE_SUB(NOW(), INTERVAL 5 HOUR), NOW()),
+    ('cust4', 'Car4', DATE_SUB(NOW(), INTERVAL 6 HOUR), NOW()),
+    ('cust5', 'Car5', DATE_SUB(NOW(), INTERVAL 7 HOUR), NOW());
 
 -- CarSensorLinks 테이블에 데이터 삽입
-INSERT INTO CarSensorLinks (CarId)
+INSERT INTO CarSensorLinks (CarName)
 VALUES
-    (1),
-    (2),
-    (3),
-    (4),
-    (5);
+    ('Car1'),
+    ('Car2'),
+    ('Car3'),
+    ('Car4'),
+    ('Car5');
 
 -- SensorData 테이블에 데이터 삽입 (time을 현재 시간에서 5분, 4분, 3분, 2분, 1분 전으로 설정)
-INSERT INTO SensorData (time, SensorId, ax, ay, az, gx, gy, gz, decibel, temp, humi)
+INSERT INTO SensorData (time, SensorID, ax, ay, az, gx, gy, gz, decibel, temp, humi)
 VALUES
     (DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0.1, 0.2, 0.3, 1.1, 1.2, 1.3, 50.5, 25.5, 60.0),
     (DATE_SUB(NOW(), INTERVAL 4 MINUTE), 1, 0.2, 0.3, 0.4, 1.2, 1.3, 1.4, 55.5, 26.0, 61.0),
@@ -149,10 +155,10 @@ VALUES
     (DATE_SUB(NOW(), INTERVAL 1 MINUTE), 3, 0.5, 0.6, 0.7, 1.5, 1.6, 1.7, 70.5, 27.5, 64.0);
 
 -- DriveList 테이블에 데이터 삽입 (RentalTime을 대여의 총 시간으로 설정)
-INSERT INTO DriveList (CustomerId, RentalId, RentalTime, RentalDistance, RecklessDriving, SuddenAccel, RapidAccel)
+INSERT INTO DriveList (CustomerID, RentalID, RentalTime, RentalDistance, RecklessDriving, SuddenAccel, RapidAccel)
 VALUES
-    (1, 1, TIMEDIFF((SELECT EndTime FROM Rentals WHERE RentalId = 1), (SELECT StartTime FROM Rentals WHERE RentalId = 1)), 50.0, 1, 0, 1),
-    (2, 2, TIMEDIFF((SELECT EndTime FROM Rentals WHERE RentalId = 2), (SELECT StartTime FROM Rentals WHERE RentalId = 2)), 60.0, 0, 1, 1),
-    (3, 3, TIMEDIFF((SELECT EndTime FROM Rentals WHERE RentalId = 3), (SELECT StartTime FROM Rentals WHERE RentalId = 3)), 70.0, 1, 1, 0),
-    (4, 4, TIMEDIFF((SELECT EndTime FROM Rentals WHERE RentalId = 4), (SELECT StartTime FROM Rentals WHERE RentalId = 4)), 80.0, 0, 1, 1),
-    (5, 5, TIMEDIFF((SELECT EndTime FROM Rentals WHERE RentalId = 5), (SELECT StartTime FROM Rentals WHERE RentalId = 5)), 90.0, 1, 0, 1);
+    ('cust1', 1, TIMEDIFF((SELECT EndTime FROM Rentals WHERE RentalID = 1), (SELECT StartTime FROM Rentals WHERE RentalID = 1)), 50.0, 1, 0, 1),
+    ('cust2', 2, TIMEDIFF((SELECT EndTime FROM Rentals WHERE RentalID = 2), (SELECT StartTime FROM Rentals WHERE RentalID = 2)), 60.0, 0, 1, 1),
+    ('cust3', 3, TIMEDIFF((SELECT EndTime FROM Rentals WHERE RentalID = 3), (SELECT StartTime FROM Rentals WHERE RentalID = 3)), 70.0, 1, 1, 0),
+    ('cust4', 4, TIMEDIFF((SELECT EndTime FROM Rentals WHERE RentalID = 4), (SELECT StartTime FROM Rentals WHERE RentalID = 4)), 80.0, 0, 1, 1),
+ ('cust5', 5, TIMEDIFF((SELECT EndTime FROM Rentals WHERE RentalID = 5), (SELECT StartTime FROM Rentals WHERE RentalID = 5)), 90.0, 1, 0, 1);

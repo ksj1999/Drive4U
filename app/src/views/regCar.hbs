@@ -1,122 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <!-- Basic -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
-  <link rel="icon" href="images/fevicon.png" type="image/gif" />
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
+    <!-- Meta data -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags must come first in the head; any other head content must come after these tags -->
 
-  <title>PeterPet</title>
+    <!-- Font-family -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet">
 
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <!-- Title of the site -->
+    <title>Drive4U</title>
 
-  <!-- fonts style -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/icon" href="logo/favicon.png" />
 
-  <!-- font awesome style -->
-  <link href="css/font-awesome.min.css" rel="stylesheet" />
-  <!-- Custom styles for this template -->
-  <link href="css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
-  <link href="css/responsive.css" rel="stylesheet" />
+    <!-- Font-awesome.min.css -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
 
+    <!-- Linear icon CSS -->
+    <link rel="stylesheet" href="css/linearicons.css">
+
+    <!-- Flaticon.css -->
+    <link rel="stylesheet" href="css/flaticon.css">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/animate.css">
+
+    <!-- Owl.carousel.css -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+    <!-- Bootstrap.min.css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Bootsnav -->
+    <link rel="stylesheet" href="css/bootsnav.css">
+
+    <!-- Style.css -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Responsive.css -->
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
-<body class="sub_page">
 
-  <div class="hero_area">
-    <!-- header section strats -->
-    <header class="header_section long_section px-0">
-      <nav class="navbar navbar-expand-lg custom_nav-container ">
-        <a class="navbar-brand" href="/">
-          <span>
-            PeterPet
-          </span>
-        </a>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class=""> </span>
-        </button>
+<body>
+    <!-- Welcome-hero start -->
+    <section id="home" class="welcome-hero">
+        <!-- Top-area Start -->
+        <div class="top-area">
+            <div class="header-area">
+                <!-- Start Navigation -->
+                <nav class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy" data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+                    <div class="container">
+                        <!-- Start Header Navigation -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <a class="navbar-brand" href="/">DriveForU<span></span></a>
+                        </div><!--/.navbar-header-->
+                        <!-- End Header Navigation -->
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+                            <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                                <li class="scroll active"><a href="/">home</a></li>
+                                <li class="scroll"><a href="/signIn">signIn</a></li>
+                            </ul><!--/.nav -->
+                        </div><!-- /.navbar-collapse -->
+                    </div><!--/.container-->
+                </nav><!--/nav-->
+                <!-- End Navigation -->
+            </div><!--/.header-area-->
+            <div class="clearfix"></div>
+        </div><!-- /.top-area-->
+        <!-- Top-area End -->
+    </section><!--/.welcome-hero-->
+    <!-- Welcome-hero end -->
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
-            <ul class="navbar-nav ">
-              <li class="nav-item ">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-              </li>
-            </ul>
-          </div>
-          <div class="quote_btn-container">
-            <a href="">
-              <span>
-                Login
-              </span>
-              <i class="fa fa-user" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-      </nav>
-    </header>
-    <!-- end header section -->
-  </div>
 
-  <!-- contact section -->
-  <section class="contact_section  long_section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form_container">
-            <div class="heading_container">
-              <h2>
-                Register Owner
-              </h2>
+    <!-- New-cars section -->
+    <section id="new-cars" class="new-cars">
+        <div class="container">
+            <div class="section-header">
+                <h2>Register New Car</h2>
             </div>
-            <form name="owner" method="post" action="/regOwner">
-        
-            <label for="ownerId">ID</label>
-            <input id="ownerId" name="ownerId" type="text" required placeholder="Owner ID" />
-            
-            <label for="password">Password</label>
-            <input id="passwd" name='password' type="password" required placeholder="Owner Password">
-            
-            <label for="ownerName">Name</label>
-            <input id="ownerName" name='ownerName' type="text" required placeholder="Owner Name">
-            
-            <label for="email">Email</label>
-            <input id="email" name='email' type="text" required placeholder="Owner Email">
-            
-            <button class="btn1">
-                  Register Owner
-            </button>
-        </form>
-          </div>
+            <form id="car" method="post" action="/regCar">
+            <div class="form-group">
+                    <label for="carName">Car Name</label>
+                    <input id="carType" name="carName" type="text" class="form-control" required placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <label for="carType">Car Type</label>
+                    <input id="carType" name="carType" type="text" class="form-control" required placeholder="Type">
+                </div>
+                <button type="submit" class="btn1">register Car</button>
+            </form>
         </div>
-        <div class="col-md-6">
-          <div class="img-box">
-            <img src="images/owner.jpg" alt="">
-          </div>
-          </div>
-      </div>
-    </div>
-  </section>
-  <!-- end contact section -->
+    </section>
+    <!-- End New-cars section -->
 
 
-  <!-- jQery -->
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <!-- bootstrap js -->
-  <script src="js/bootstrap.js"></script>
-  <!-- custom js -->
-  <script src="js/custom.js"></script>
-</body>
-
-</body>
-
+    <!-- jQery -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- custom js -->
+    <script src="js/custom.js"></script>
+  </body>
 </html>
+
+

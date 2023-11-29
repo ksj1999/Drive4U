@@ -12,14 +12,14 @@ router.post('/', async (req, res) => {
     const employees = await selectSql.getEmployees();
 
     employees.forEach((employee) => {
-        console.log('Employee ID:', employee.EmployeeId);
+        console.log('Employee ID:', employee.EmployeeID);
         console.log('Employee Password:', employee.Password);
         console.log(' ');
 
-        if (vars.id == employee.EmployeeId && vars.password == employee.Password) {
+        if (vars.id == employee.EmployeeID && vars.password == employee.Password) {
             console.log('Login success!');
-            req.session.user = { id: employee.EmployeeId, role: 'employee', checkLogin: true };
-            req.session.Id = employee.EmployeeId;
+            req.session.user = { id: employee.EmployeeID, role: 'employee', checkLogin: true };
+            req.session.Id = employee.EmployeeID;
         }
     });
 
