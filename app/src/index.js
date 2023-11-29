@@ -14,7 +14,9 @@ import adminMainRouter from './routes/adminMain';
 import regCarRouter from './routes/regCar';
 import qrRouter from './routes/regSensor';
 
-import ownerDashRouter from './routes/ownerDash';
+
+import customerMainRouter from './routes/customerMain';
+import rentalCarRouter from './routes/rentalCar';
 
 const expressSanitizer = require("express-sanitizer");
 
@@ -57,10 +59,11 @@ app.use('/signUp', signUpRouter);
 app.use('/signIn', signInAdminRouter);
 app.use('/signInCustomer', signInCustomerRouter);
 
-app.use('/ownerDash', ownerDashRouter);
+app.use('/customerMain', customerMainRouter);
 app.use('/adminMain', adminMainRouter);
 app.use('/regCar',regCarRouter);
 app.use('/regSensor', qrRouter);
+app.use('/rentalCar', rentalCarRouter);
 
 // http 서버는 8000번 포트로 실행
 app.listen(PORT, () => {

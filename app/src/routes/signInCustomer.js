@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
         });
 
         if (loginSuccessful) {
-            return res.redirect('/ownerDash'); 
+            return res.redirect('/customerMain'); 
         } else {
             console.log('Login failed!');
             res.send(`<script>
