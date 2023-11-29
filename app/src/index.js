@@ -17,6 +17,7 @@ import qrRouter from './routes/regSensor';
 
 import customerMainRouter from './routes/customerMain';
 import rentalCarRouter from './routes/rentalCar';
+import returnRouter from './routes/return';
 
 const expressSanitizer = require("express-sanitizer");
 
@@ -64,6 +65,7 @@ app.use('/adminMain', adminMainRouter);
 app.use('/regCar',regCarRouter);
 app.use('/regSensor', qrRouter);
 app.use('/rentalCar', rentalCarRouter);
+app.use('/return', returnRouter);
 
 // http 서버는 8000번 포트로 실행
 app.listen(PORT, () => {
