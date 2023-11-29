@@ -7,6 +7,11 @@ import homeRouter from './routes/home';
 import sensorRouter from './routes/sensor';
 
 import signUpRouter from './routes/signUp';
+import signInAdminRouter from './routes/signIn';
+import signInCustomerRouter from './routes/signInCustomer';
+import userMainRouter from './routes/userMain';
+
+import ownerDashRouter from './routes/ownerDash';
 
 const expressSanitizer = require("express-sanitizer");
 
@@ -46,6 +51,11 @@ app.use(logger('dev'));
 app.use('/', homeRouter);
 app.use('/sensor', sensorRouter);
 app.use('/signUp', signUpRouter);
+app.use('/signIn', signInAdminRouter);
+app.use('/signInCustomer', signInCustomerRouter);
+
+app.use('/ownerDash', ownerDashRouter);
+app.use('/userMain', userMainRouter);
 
 // http 서버는 8000번 포트로 실행
 app.listen(PORT, () => {
