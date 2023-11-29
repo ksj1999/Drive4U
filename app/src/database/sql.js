@@ -33,25 +33,74 @@ export const selectSql = {
         const [result] = await promisePool.query(sql);
         return result;
     },
+    getEmployeeFromId: async(data) => {
+        const sql = `select ID from employees 
+        where EmployeeId="${data.EmployeeId}")
+        `
+        const [result] = await promisePool.query(sql);
+        return result;
+    },
 }
 
 // insert query
 export const insertSql = {
-    setEmployee:async (data) => {
-        const sql = `insert into Employees(EmployeeId, Password, Name, Email, RegDate) values (
-            "${data.EmployeeId}",  "${data.Password}",  "${data.Name}", "${data.Email}", now()
-        )`
+    setEmployee: async (data) => {
+        const sql = `
+            INSERT INTO Employees(EmployeeId, Password, Name, Email, RegDate)
+            VALUES (?, ?, ?, ?, NOW());
+        `;
         console.log(data);
-        await promisePool.query(sql);
+
+        try {
+            await promisePool.query(sql, [data.EmployeeId, data.Password, data.Name, data.Email]);
+        } catch (error) {
+            console.error('Error inserting employee:', error.message);
+        }
     },
-    setCustomer: async(data) => {
-        const sql = `insert into Customers(CustomerId, Password, Name, Email, RegDate) values (
-            "${data.CustomerId}",  "${data.Password}", 
-             "${data.Name}", "${data.Email}", now()
-        )`
+
+    setCustomer: async (data) => {
+        const sql = `
+            INSERT INTO Customers(CustomerId, Password, Name, Email, RegDate)
+            VALUES (?, ?, ?, ?, NOW());
+        `;
         console.log(data);
-        await promisePool.query(sql);
+
+        try {
+            await promisePool.query(sql, [data.CustomerId, data.Password, data.Name, data.Email]);
+        } catch (error) {
+            console.error('Error inserting customer:', error.message);
+        }
     },
+
+    setCar: async (data) => {
+        const sql = `
+            INSERT INTO Cars(RegDate, CarType)
+            VALUES (NOW(), ?);
+        `;
+    
+        try {
+            const [result] = await promisePool.query(sql, [data.CarType]);
+            return result.insertId;
+        } catch (error) {
+            console.error('Error inserting car:', error.message);
+            throw error; 
+        }
+    },
+    
+    setCarcare: async (data) => {
+        const sql = `
+            INSERT INTO CarCare(CarId, EmployeeId)
+            VALUES (?, ?);
+        `;
+    
+        try {
+            await promisePool.query(sql, [data.CarId, data.EmployeeId]);
+        } catch (error) {
+            console.error('Error inserting car care record:', error.message);
+            throw error; 
+        }
+    },
+
     setSensor:async (data) => {
         const sql = `insert into sensordata values ( 1,
             now(), ${data.ax}, ${data.ay},${data.az},
@@ -59,6 +108,11 @@ export const insertSql = {
             ${data.decibel}, ${data.temp}, ${data.humi}
         )`
         console.log(data);
-        await promisePool.query(sql);
+
+        try {
+          await promisePool.query(sql);
+        } catch (error) {
+            console.error('Error inserting sensor data:', error.message);
+        }
     },
 };

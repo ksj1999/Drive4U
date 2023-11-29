@@ -9,7 +9,10 @@ import sensorRouter from './routes/sensor';
 import signUpRouter from './routes/signUp';
 import signInAdminRouter from './routes/signIn';
 import signInCustomerRouter from './routes/signInCustomer';
+
 import adminMainRouter from './routes/adminMain';
+import regCarRouter from './routes/regCar';
+import qrRouter from './routes/regSensor';
 
 import ownerDashRouter from './routes/ownerDash';
 
@@ -56,6 +59,8 @@ app.use('/signInCustomer', signInCustomerRouter);
 
 app.use('/ownerDash', ownerDashRouter);
 app.use('/adminMain', adminMainRouter);
+app.use('/regCar',regCarRouter);
+app.use('/regSensor', qrRouter);
 
 // http 서버는 8000번 포트로 실행
 app.listen(PORT, () => {
