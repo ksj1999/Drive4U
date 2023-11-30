@@ -25,6 +25,7 @@ CREATE TABLE Cars (
     CarName VARCHAR(45) NOT NULL,
     RegDate DATETIME,
     CarType VARCHAR(45) NULL,
+    CarPrice INT NULL,
     PRIMARY KEY (CarID),
     UNIQUE KEY (CarName)
 );
@@ -110,13 +111,13 @@ VALUES
     ('cust5', 'pd5', 'Daniel Park', 'daniel@example.com', NOW(), 0, 0);
 
 -- Cars 테이블에 데이터 삽입
-INSERT INTO Cars (CarName, RegDate, CarType)
+INSERT INTO Cars (CarName, RegDate, CarType, CarPrice)
 VALUES
-    ('Car1', NOW(), 'Sedan'),
-    ('Car2', NOW(), 'SUV'),
-    ('Car3', NOW(), 'Truck'),
-    ('Car4', NOW(), 'Hatchback'),
-    ('Car5', NOW(), 'Convertible');
+    ('Car1', NOW(), 'Sedan', 100),
+    ('Car2', NOW(), 'SUV', 800),
+    ('Car3', NOW(), 'Truck', 900),
+    ('Car4', NOW(), 'Hatchback', 700),
+    ('Car5', NOW(), 'Convertible', 500);
 
 -- CarCare 테이블에 데이터 삽입
 INSERT INTO CarCare (CarName, EmployeeID)

@@ -67,12 +67,12 @@ export const insertSql = {
 
     setCar: async (data) => {
         const sql = `
-            INSERT INTO Cars(CarName, CarType, RegDate)
-            VALUES (?,?,NOW());
+            INSERT INTO Cars(CarName, CarType, CarPrice, RegDate)
+            VALUES ("${data.CarName}","${data.CarType}",${data.CarPrice},NOW());
         `;
     
         try {
-            await promisePool.query(sql, [data.CarName, data.CarType]);
+            await promisePool.query(sql,);
         } catch (error) {
             console.error('Error inserting car:', error.message);
             throw error; 
@@ -87,7 +87,6 @@ export const insertSql = {
     
         try {
             await promisePool.query(sql, [data.CarName, data.EmployeeID]);
-            console.log(data.EmployeeID)
         } catch (error) {
             console.error('Error inserting car care record:', error.message);
             throw error; 

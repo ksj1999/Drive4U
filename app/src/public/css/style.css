@@ -792,72 +792,72 @@ input {
     margin-top: 50px;
 }
 
-.toggle-label,
-.toggle-label-customer {
-    margin-right: 10px; /* 각 토글 사이의 간격 조절 */
-}
+/* QR Code Scan Section Styles */
 
-#adminForm,
-#customerForm {
-    display: inline-block; /* 가로 정렬을 위해 인라인 블록으로 설정 */
-    margin-top: 10px; /* 폼 간 간격 조절 */
-}
-
-#adminForm label,
-#customerForm label {
+.about_section .main_page {
     display: flex;
-    align-items: center;
-    margin-bottom: 10px; /* 라벨 간 간격 조절 */
-}
-
-
-.center-container {
-    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    margin: 0;
-}
-
-
-/* QR Scan section styles */
-#frame {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  
+  .about_section #frame {
     position: relative;
-}
-
-#loadingMessage {
-    text-align: center;
-    padding: 40px;
-    font-size: 18px;
-}
-
-#canvas {
+    margin: 10px auto;
+    width: 640px;
+  }
+  
+  
+  .about_section input[type="button"] {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: darkgray;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .about_section input[type="button"]:hover {
+    background-color: transparent;
+    color: #000;
+  }
+  
+  
+  .about_section #test {
     width: 100%;
-    max-width: 400px;
-    margin: auto;
-    display: block;
-}
-
-#test {
-    margin-top: 30px;
-}
-
-#output {
-    text-align: center;
-}
-
-#outputMessage {
+  }
+  
+  
+  .about_section #output h2 {
+    font-size: 40px;
+    margin-top: 15px;
+  }
+  
+  
+  .about_section #outputMessage,
+  .about_section #outputData {
+    align-items: center;
+    align-content: center;
+    font: 60px;
+    color: #0102fa;
+  }
+  
+  .about_section .btn-box a {
     display: inline-block;
-    padding: 20px;
-    font-size: 18px;
-}
-
-#outputLayer {
-    display: none;
-}
-
-#outputData {
-    display: inline-block;
-    padding: 20px;
-    font-size: 18px;
-}
+    padding: 10px 20px;
+    background-color: black;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  .about_section .btn-box a:hover {
+    background-color: #0102fa;
+    color: #fff;
+  } 

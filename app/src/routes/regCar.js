@@ -15,6 +15,7 @@ router.post('/', async (req, res) => {
     const data = {
         CarName: vars.carName,
         CarType: vars.carType,
+        CarPrice: vars.carPrice,
         EmployeeID: req.session.Id,
     };
     console.log(data);

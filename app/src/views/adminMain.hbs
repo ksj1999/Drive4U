@@ -34,6 +34,9 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
 
+    <!-- Bootstrap.min.css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
     <!-- Bootsnav -->
     <link rel="stylesheet" href="css/bootsnav.css">
 
@@ -81,8 +84,23 @@
 <!--service start -->
 <section id="service" class="service">
     <div class="container">
+        <div class="section-header" style="margin:0 0 70px auto;">
+                <h2>Admin Main</h2>
+            </div>
         <div class="service-content">
             <div class="row">
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-service-item">
+                        <div class="single-service-icon">
+                            <i class="flaticon-car-repair"></i>
+                        </div>
+                        <h2><a href="/regCar"> Register New Car</a></h2>
+                        <p>
+                            새로운 차량 등록하기
+                        </p>
+                    </div>
+                </div>
 
                 <div class="col-lg-4 col-md-6">
                     <div class="single-service-item">
@@ -103,11 +121,11 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="single-service-item">
                         <div class="single-service-icon">
-                            <i class="flaticon-car-repair"></i>
+                            <i class="flaticon-car"></i>
                         </div>
-                        <h2><a href="/regCar"> Register New Car</a></h2>
+                        <h2><a href="/rentalCar">Check Car list</a></h2>
                         <p>
-                            새로운 차량 등록하기
+                            유휴 차량 확인하기
                         </p>
                     </div>
                 </div>
@@ -119,11 +137,19 @@
 <!--service end-->
 
 
-
-    <!-- jQery -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <!-- custom js -->
+    <!-- Include all JS compiled plugins (below), or include individual files as needed -->
+    <script src="js/jquery.js"></script>
+    <!--modernizr.min.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <!--bootstrap.min.js-->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Bootsnav JS -->
+    <script src="js/bootsnav.js"></script>
+    <!-- Owl.carousel.js -->
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <!-- Custom JS -->
     <script src="js/custom.js"></script>
-  </body>
-</html>
+</body>
 
+</html>

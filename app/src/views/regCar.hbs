@@ -81,11 +81,10 @@
     </section><!--/.welcome-hero-->
     <!-- Welcome-hero end -->
 
-
     <!-- New-cars section -->
     <section id="new-cars" class="new-cars">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" style="margin:20px 0 70px auto;">
                 <h2>Register New Car</h2>
             </div>
             <form id="car" method="post" action="/regCar">
@@ -96,6 +95,10 @@
                 <div class="form-group">
                     <label for="carType">Car Type</label>
                     <input id="carType" name="carType" type="text" class="form-control" required placeholder="Type">
+                </div>
+                <div class="form-group">
+                    <label for="carPrice">Car Basic Price</label>
+                    <input id="carPrice" name="carPrice" type="text" class="form-control" required placeholder="Car Basic Price Per day">
                 </div>
                 <button type="submit" class="btn1">register Car</button>
             </form>
