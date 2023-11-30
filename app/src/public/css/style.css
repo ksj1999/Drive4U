@@ -279,6 +279,24 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
 
 /*.welcome-hero-txt*/
 
+.welcome-hero2 {
+    position: relative;
+    background:url(../images/welcome-hero/welcome-banner2.jpg)no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: 1;
+}
+.welcome-hero2:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(42,45,84,.50);
+}
+
+
 /*-------------------------------------
         4. Model-Search
 --------------------------------------*/
