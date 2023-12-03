@@ -1,27 +1,25 @@
-import sys
-from joblib import load
 import pandas as pd
 import numpy as np
 import math
 
-# Corrected indexing for reading arguments from command line
-time = sys.argv[1]
-ax = float(sys.argv[2])
-ay = float(sys.argv[3])
-az = float(sys.argv[4])
-gx = float(sys.argv[5])
-gy = float(sys.argv[6])
-gz = float(sys.argv[7])
 
-# Create a DataFrame with sensor data
+# 시간 설정: 1초 간격으로 총 60초
+time = pd.date_range(start="00:00:00", periods=3000, freq="S")
+
+# 심한 사행 운전을 시뮬레이션하기 위한 가속도 데이터 생성
+# ax: 전후 방향 가속도 (이 예제에서는 일정하게 유지)
+# ay: 좌우 방향 가속도 (심한 사행 운전을 나타내기 위해 빠른 주기의 사인파 형태로 변화)
+# az: 수직 방향 가속도 (중력 가속도를 고려하여 일정하게 유지)
+ax = np.zeros(len(time))  # 전후 방향 가속도는 0으로 가정
+ay = np.sin(np.linspace(0, 1 * np.pi, len(time)))  # 심한 사행 운전을 나타내는 가속도
+az = np.full(len(time), 9.81)  # 중력 가속도
+
+# 데이터프레임 생성
 sensor_data = pd.DataFrame({
-    'time' : [time]
-    'ax': [abs(ax)],
-    'ay': [abs(ay)],
-    'az': [abs(az)],
-    'gx': [abs(gx)],
-    'gy': [abs(gy)],
-    'gz': [abs(gz)]
+    'time': time,
+    'ax': ax,
+    'ay': ay,
+    'az': az
 })
 
 def calculate_roll(accel_data):
@@ -35,7 +33,7 @@ sensor_data['roll'] = sensor_data.apply(lambda row: calculate_roll((row['ax'], r
 turn_points = sensor_data['roll'].abs() > 20  # 20도를 초과하는 지점을 방향 전환 지점으로 간주
 
 # 'time' 열을 timedelta로 변환
-sensor_data['time'] = pd.to_timedelta(sensor_data['time'], unit='s')
+#sensor_data['time'] = pd.to_timedelta(sensor_data['time'], unit='s')
 
 def integrate(data, time):
     integral = np.zeros(len(data))
@@ -73,6 +71,13 @@ else:
 
 # 실제 이동 거리 (경로를 따라가며 거리 누적)
 actual_distance = np.sum(np.sqrt(np.diff(sensor_data['sx'])**2 + np.diff(sensor_data['sy'])**2 + np.diff(sensor_data['sz'])**2))
+
+if displacement*2 <= actual_distance:
+    1
+    print(1)
+else:
+    0
+    print(0)
 
 print("최단 거리:", displacement)
 print("실제 이동 거리:", actual_distance)

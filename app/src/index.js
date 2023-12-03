@@ -19,6 +19,10 @@ import customerMainRouter from './routes/customerMain';
 import rentalCarRouter from './routes/rentalCar';
 import returnRouter from './routes/return';
 
+//임시 버튼 페이지
+import rentButtonsRouter from './routes/rentButtons';
+
+
 const expressSanitizer = require("express-sanitizer");
 
 // fs and https 모듈 가져오기
@@ -66,6 +70,9 @@ app.use('/regCar',regCarRouter);
 app.use('/regSensor', qrRouter);
 app.use('/rentalCar', rentalCarRouter);
 app.use('/return', returnRouter);
+
+// 임시 버튼 페이지
+app.use('/rentButtons', rentButtonsRouter);
 
 // http 서버는 8000번 포트로 실행
 app.listen(PORT, () => {
