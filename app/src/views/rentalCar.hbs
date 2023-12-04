@@ -45,6 +45,10 @@
 
     <!-- Responsive.css -->
     <link rel="stylesheet" href="css/responsive.css">
+
+		<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </head>
 <body>
     <!-- Welcome-hero start -->
@@ -106,7 +110,12 @@
 									</div>
 								</div>
 								<div class="featured-cars-txt">
-									<h2><a href="/return">BMW 6-series gran coupe</a></h2>
+									<h2><button id="rentstart">BMW 6-series gran coupe</a></h2>
+<!-- 대여 버튼 클릭 시 보여질 안내창 -->
+<div class="confirmation-text" data-car-name="BMW 6-series gran coupe" style="display: none;">
+</div>
+
+
 									<h3>$100 per day</h3>
                                     <p>
                                     <span style="color:green">Green level </span>$90 per day <br/>
@@ -318,7 +327,56 @@
 				</div>
 			</div><!--/.scroll-Top-->
         </footer><!--/.contact-->
-		
+	<!-- 모달 창 -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">대여 확인</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>차량 대여를 시작하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-primary" id="confirmRental">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 확인 안내창에서 확인 버튼 클릭 시 실행될 동작 -->
+<script>
+    $(document).ready(function () {
+        $('#rentstart').click(function () {
+            // 모달 창 보이기
+            $('#confirmationModal').modal('show');
+
+            // 확인 버튼 누르면
+            $('#confirmRental').click(function() {
+                const customerID = 'cust1'; // 예시 데이터, 실제로는 적절한 데이터를 사용해야 함
+                const carName = 'Car1';     // 예시 데이터
+
+                $.post('/rentalCar/startRental', { customerID, carName }, function(response) {
+                    alert(response); // 서버 응답 메시지를 알림으로 표시
+
+                    // Redirect to the "/return" page
+                    window.location.href = '/return';
+                });
+
+                // 모달 창 닫기
+                $('#confirmationModal').modal('hide');
+            });
+        });
+    });
+</script>
+
+
+
+
     <!-- Include all JS compiled plugins (below), or include individual files as needed -->
     <script src="js/jquery.js"></script>
     <!--modernizr.min.js-->
