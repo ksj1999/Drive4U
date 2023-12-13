@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
     if (req.session.user === undefined) {
         console.log('Login failed!');
         res.send(`<script>
-                    alert('아이디 혹은 비밀번호를 확인하세요!');
+                    alert('Please check your ID or Password!');
                     location.href='/';
                 </script>`);
     } else if (req.session.user.checkLogin) {
