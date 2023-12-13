@@ -57,9 +57,8 @@ CREATE TABLE Rentals (
 
 -- CarSensorLinks 테이블
 CREATE TABLE CarSensorLinks (
-    SensorID INT NOT NULL AUTO_INCREMENT,
     CarName VARCHAR(45) NOT NULL,
-    PRIMARY KEY (SensorID),
+    SensorID INT NOT NULL,
     FOREIGN KEY (CarName) REFERENCES Cars(CarName)
 );
 
@@ -147,16 +146,16 @@ VALUES
     ('cust5', 'Car5', DATE_SUB(NOW(), INTERVAL 7 HOUR), NOW());
 
 -- CarSensorLinks 테이블에 데이터 삽입
-INSERT INTO CarSensorLinks (CarName)
+INSERT INTO CarSensorLinks (CarName,SensorID)
 VALUES
-    ('Car1'),
-    ('Car2'),
-    ('Car3'),
-    ('Car4'),
-    ('Car5'),
-    ('Car6'),
-    ('Car7'),
-    ('Car8');
+    (1, 'Car1'),
+    (1, 'Car2'),
+    (1, 'Car3'),
+    (1, 'Car4'),
+    (1, 'Car5'),
+    (1, 'Car6'),
+    (1, 'Car7'),
+    (1, 'Car8');
 
 -- SensorData 테이블에 데이터 삽입 (time을 현재 시간에서 5분, 4분, 3분, 2분, 1분 전으로 설정)
 INSERT INTO SensorData (time, SensorID, ax, ay, az, gx, gy, gz, decibel, temp, humi)
