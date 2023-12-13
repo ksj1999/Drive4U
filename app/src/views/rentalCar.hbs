@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- Meta data -->
     <meta charset="utf-8">
@@ -16,7 +15,7 @@
     <title>Drive4U</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/icon" href="logo/favicon.png" />
+    <link rel="shortcut icon" type="image/icon" href="logo/favicon.png"/>
 
     <!-- Font-awesome.min.css -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -46,9 +45,8 @@
     <!-- Responsive.css -->
     <link rel="stylesheet" href="css/responsive.css">
 
-		<!-- Include jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
     <!-- Welcome-hero start -->
@@ -84,309 +82,303 @@
     </section><!--/.welcome-hero-->
     <!-- Welcome-hero end -->
 
-		<!--featured-cars start -->
-		<section id="featured-cars" class="featured-cars">
-			<div class="container">
-				<div class="section-header">
-					<p>checkout <span>the</span> cars</p>
-					<h2>Available rental cars</h2>
-				</div><!--/.section-header-->
-				<div class="featured-cars-content">
-					<div class="row">
-
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="images/featured-cars/fc1.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
+    <!-- Featured Cars Section -->
+    <section id="featured-cars" class="featured-cars">
+        <div class="container">
+            <div class="section-header">
+                <p>checkout <span>the</span> cars</p>
+                <h2>Available rental cars</h2>
+            </div><!--/.section-header-->
+            <div class="featured-cars-content">
+                <div class="row">
+                    <!-- BMW 6-series gran coupe -->
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<div class="single-featured-cars">
+							<div class="featured-img-box">
+								<div class="featured-cars-img">
+									<img src="images/featured-cars/fc1.png" alt="cars">
 								</div>
-								<div class="featured-cars-txt">
-									<h2><button id="rentstart">BMW 6-series gran coupe</a></h2>
-<!-- 대여 버튼 클릭 시 보여질 안내창 -->
-<div class="confirmation-text" data-car-name="BMW 6-series gran coupe" style="display: none;">
-</div>
-
-
-									<h3>$100 per day</h3>
-                                    <p>
-                                    <span style="color:green">Green level </span>$90 per day <br/>
-                                   <span style="color:orange">Yellow level </span>$100 per day <br/>
-                                    <span style="color:red">Red level</span> $110 per day       
-                                    </p>
+								<div class="featured-model-info">
+									<p>
+										model: 2017
+										<span class="featured-mi-span"> 3100 mi</span> 
+										<span class="featured-hp-span"> 240HP</span>
+											automatic
+									</p>
 								</div>
 							</div>
-						</div>
-
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="images/featured-cars/fc2.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="/return">chevrolet camaro <span>wmv20</span></a></h2>
-									<h3>$665 per day</h3>
-                                    <p>
-                                    <span style="color:green">Green level </span>$599 per day <br/>
-                                   <span style="color:orange">Yellow level </span>$665 per day <br/>
-                                    <span style="color:red">Red level</span> $732 per day       
-                                    </p>
-								</div>
+							<div class="featured-cars-txt">
+                                <h2>BMW 6-series gran coupe</h2>
+                                <button class="rent-start-btn" data-car-id="Car1">Rent This Car</button>
+								<h3>$100 per day</h3>
+								<p>
+								<span style="color:green">Green level </span>$90 per day <br/>
+								<span style="color:orange">Yellow level </span>$100 per day <br/>
+								<span style="color:red">Red level</span> $110 per day       
+								</p>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="images/featured-cars/fc3.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
+					</div>				  
+                    <!-- Chevrolet Camaro -->
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<div class="single-featured-cars">
+							<div class="featured-img-box">
+								<div class="featured-cars-img">
+									<img src="images/featured-cars/fc2.png" alt="cars">
 								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="/return">lamborghini <span>v520</span></a></h2>
-									<h3>$125 per day</h3>
-                                    <p>
-                                    <span style="color:green">Green level </span>$113  per day <br/>
-                                   <span style="color:orange">Yellow level </span>$125 per day <br/>
-                                    <span style="color:red">Red level</span> $138 per day       
-                                    </p>
-
+								<div class="featured-model-info">
+									<p>
+										model: 2017
+										<span class="featured-mi-span"> 3100 mi</span> 
+										<span class="featured-hp-span"> 240HP</span>
+											automatic
+									</p>
 								</div>
 							</div>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="images/featured-cars/fc4.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="/return">audi <span> a3</span> sedan</a></h2>
-									<h3>$95 per day</h3>
-                                    <p>
-                                    <span style="color:green">Green level </span>$85 per day <br/>
-                                   <span style="color:orange">Yellow level </span>$95 per day <br/>
-                                    <span style="color:red">Red level</span> $105 per day       
-                                    </p>
-								</div>
+							<div class="featured-cars-txt">
+                                <h2>Chevrolet Camaro</h2>
+                                <button class="rent-start-btn" data-car-id="Car2">Rent This Car</button>
+								<h3>$665 per day</h3>
+								<p>
+								<span style="color:green">Green level </span>$599 per day <br/>
+								<span style="color:orange">Yellow level </span>$665 per day <br/>
+								<span style="color:red">Red level</span> $732 per day       
+								</p>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="images/featured-cars/fc4.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
+
+                    <!-- Lamborghini V520 -->
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<div class="single-featured-cars">
+							<div class="featured-img-box">
+								<div class="featured-cars-img">
+									<img src="images/featured-cars/fc3.png" alt="cars">
 								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="/return">infiniti <span>z5</span></a></h2>
-									<h3>$369 per day</h3>
-                                    <p>
-                                    <span style="color:green">Green level </span>$332 per day <br/>
-                                   <span style="color:orange">Yellow level </span>$369 per day <br/>
-                                    <span style="color:red">Red level</span> $406 per day       
-                                    </p>
+								<div class="featured-model-info">
+									<p>
+										model: 2017
+										<span class="featured-mi-span"> 3100 mi</span>
+										<span class="featured-hp-span"> 240HP</span>
+										automatic
+									</p>
 								</div>
 							</div>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="images/featured-cars/fc5.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="/return">porsche <span>718</span> cayman</a></h2>
-									
-									<h3>$485 per day</h3>
-                                    <p>
-                                    <span style="color:green">Green level </span>$436 per day <br/>
-                                   <span style="color:orange">Yellow level </span>$485 per day <br/>
-                                    <span style="color:red">Red level</span> $534 per day       
-                                    </p>
-								</div>
+							<div class="featured-cars-txt">
+								<h2>Lamborghini V520</h2>
+								<button class="rent-start-btn" data-car-id="Car3">Rent This Car</button>
+								<h3>$125 per day</h3>
+								<p>
+								<span style="color:green">Green level </span>$113  per day <br/>
+								<span style="color:orange">Yellow level </span>$125 per day <br/>
+								<span style="color:red">Red level</span> $138 per day       
+								</p>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="images/featured-cars/fc7.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
+					</div>
+
+                    <!-- Audi A3 Sedan -->
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<div class="single-featured-cars">
+							<div class="featured-img-box">
+								<div class="featured-cars-img">
+									<img src="images/featured-cars/fc4.png" alt="cars">
 								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="/return"><span>bmw 8-</span>series coupe</a></h2>
-									<h3>$560 per day</h3>
-                                    <p>
-                                    <span style="color:green">Green level </span>$504 per day <br/>
-                                   <span style="color:orange">Yellow level </span>$560 per day <br/>
-                                    <span style="color:red">Red level</span> $616 per day       
-                                    </p>
+								<div class="featured-model-info">
+									<p>
+										model: 2017
+										<span class="featured-mi-span"> 3100 mi</span> 
+										<span class="featured-hp-span"> 240HP</span>
+											automatic
+									</p>
 								</div>
 							</div>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="images/featured-cars/fc8.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="/return">BMW <span> x</span>series-6</a></h2>
-									<h3>$759 per day</h3>
-                                    <p>
-                                    <span style="color:green">Green level </span>$683 per day <br/>
-                                   <span style="color:orange">Yellow level </span>$759 per day <br/>
-                                    <span style="color:red">Red level</span> $835 per day       
-                                    </p>
-								</div>
+							<div class="featured-cars-txt">
+								<h2>Audi A3</h2>
+								<button class="rent-start-btn" data-car-id="Car4">Rent This Car</button>
+								<h3>$95 per day</h3>
+								<p>
+								<span style="color:green">Green level </span>$85 per day <br/>
+								<span style="color:orange">Yellow level </span>$95 per day <br/>
+								<span style="color:red">Red level</span> $105 per day       
+								</p>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div><!--/.container-->
-
-		</section><!--/.featured-cars-->
-		<!--featured-cars end -->
-
-	<!--contact start-->
-		<footer id="contact"  class="contact">
-			<div id="scroll-Top">
-				<div class="return-to-top">
-					<i class="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
+				<div class="row"> 
+                    <!-- Infiniti Z5 -->
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<div class="single-featured-cars">
+							<div class="featured-img-box">
+								<div class="featured-cars-img">
+									<img src="images/featured-cars/fc5.png" alt="cars">
+								</div>
+								<div class="featured-model-info">
+									<p>
+										model: 2017
+										<span class="featured-mi-span"> 3100 mi</span> 
+										<span class="featured-hp-span"> 240HP</span>
+											automatic
+									</p>
+								</div>
+							</div>
+							<div class="featured-cars-txt">
+								<h2>Infiniti Z5</h2>
+								<button class="rent-start-btn" data-car-id="Car5">Rent This Car</button>
+								<h3>$369 per day</h3>
+								<p>
+								<span style="color:green">Green level </span>$332 per day <br/>
+								<span style="color:orange">Yellow level </span>$369 per day <br/>
+								<span style="color:red">Red level</span> $406 per day       
+								</p>
+							</div>
+						</div>
+					</div>
+                    <!-- Porsche 718 Cayman -->
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<div class="single-featured-cars">
+							<div class="featured-img-box">
+								<div class="featured-cars-img">
+									<img src="images/featured-cars/fc6.png" alt="cars">
+								</div>
+								<div class="featured-model-info">
+									<p>
+										model: 2017
+										<span class="featured-mi-span"> 3100 mi</span> 
+										<span class="featured-hp-span"> 240HP</span>
+											automatic
+									</p>
+								</div>
+							</div>
+							<div class="featured-cars-txt">
+								<h2>Porsche 718</h2>
+								<button class="rent-start-btn" data-car-id="Car6">Rent This Car</button>
+								<h3>$485 per day</h3>
+								<p>
+								<span style="color:green">Green level </span>$436 per day <br/>
+								<span style="color:orange">Yellow level </span>$485 per day <br/>
+								<span style="color:red">Red level</span> $534 per day       
+								</p>
+							</div>
+						</div>
+					</div>
+                    <!-- BMW 8-series Coupe -->
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<div class="single-featured-cars">
+							<div class="featured-img-box">
+								<div class="featured-cars-img">
+									<img src="images/featured-cars/fc7.png" alt="cars">
+								</div>
+								<div class="featured-model-info">
+									<p>
+										model: 2017
+										<span class="featured-mi-span"> 3100 mi</span> 
+										<span class="featured-hp-span"> 240HP</span>
+											automatic
+									</p>
+								</div>
+							</div>
+							<div class="featured-cars-txt">
+								<h2>BMW 8-series coupe</h2>
+								<button class="rent-start-btn" data-car-id="Car7">Rent This Car</button>
+								<h3>$560 per day</h3>
+								<p>
+								<span style="color:green">Green level </span>$504 per day <br/>
+								<span style="color:orange">Yellow level </span>$560 per day <br/>
+								<span style="color:red">Red level</span> $616 per day       
+								</p>
+							</div>
+						</div>
+					</div>
+                    <!-- BMW X Series-6 -->
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<div class="single-featured-cars">
+							<div class="featured-img-box">
+								<div class="featured-cars-img">
+									<img src="images/featured-cars/fc8.png" alt="cars">
+								</div>
+								<div class="featured-model-info">
+									<p>
+										model: 2017
+										<span class="featured-mi-span"> 3100 mi</span> 
+										<span class="featured-hp-span"> 240HP</span>
+											automatic
+									</p>
+								</div>
+							</div>
+							<div class="featured-cars-txt">
+								<h2>BMW x series-6</h2>
+								<button class="rent-start-btn" data-car-id="Car8">Rent This Car</button>
+								<h3>$759 per day</h3>
+								<p>
+								<span style="color:green">Green level </span>$683 per day <br/>
+								<span style="color:orange">Yellow level </span>$759 per day <br/>
+								<span style="color:red">Red level</span> $835 per day       
+								</p>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div><!--/.scroll-Top-->
-        </footer><!--/.contact-->
-	<!-- 모달 창 -->
-<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmationModalLabel">대여 확인</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>차량 대여를 시작하시겠습니까?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary" id="confirmRental">확인</button>
+			</div>
+		</div><!--/.container-->
+    </section>
+
+    <!-- Modal for Rental Confirmation -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirm Rental</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to rent this car?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="confirmRental">Confirm</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-    <!-- Include all JS compiled plugins (below), or include individual files as needed -->
+    <!-- Scripts -->
     <script src="js/jquery.js"></script>
-    <!--modernizr.min.js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-    <!--bootstrap.min.js-->
     <script src="js/bootstrap.min.js"></script>
-    <!-- Bootsnav JS -->
     <script src="js/bootsnav.js"></script>
-    <!-- Owl.carousel.js -->
     <script src="js/owl.carousel.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <!-- Custom JS -->
     <script src="js/custom.js"></script>
-	<!-- 확인 안내창에서 확인 버튼 클릭 시 실행될 동작 -->
-<script>
-    $(document).ready(function () {
-        $('#rentstart').click(function () {
-            // 모달 창 보이기
-            $('#confirmationModal').modal('show');
 
-            // 확인 버튼 누르면
-            $('#confirmRental').click(function() {
-                const customerID = 'cust1'; // 예시 데이터, 실제로는 적절한 데이터를 사용해야 함
-                const carName = 'Car1';     // 예시 데이터
+    <!-- Rental Process Script -->
+	<script>
+		$(document).ready(function () {
+			$('.rent-start-btn').click(function () {
+				var CarName = $(this).data('car-id');
+				var CustomerID = '{{userId}}'; // 서버에서 전달받은 사용자 ID
 
-                $.post('/rentalCar/startRental', { customerID, carName }, function(response) {
-                    alert(response); // 서버 응답 메시지를 알림으로 표시
+				$('#confirmationModal').modal('show');
 
-                    // Redirect to the "/return" page
-                    window.location.href = '/return';
-                });
+				$('#confirmRental').off('click').click(function() {
+					$.post('/rentalCar/startRental', { CustomerID, CarName}, function(response) {
+						// Display CarName, CustomerID, and current time
+						var currentTime = new Date().toLocaleString();
+						alert("Rental Details:\nCustomer ID: " + CustomerID + "\nCar Name: " + CarName + "\nTime: " + currentTime);
 
-                // 모달 창 닫기
-                $('#confirmationModal').modal('hide');
-            });
-        });
-    });
-</script>
+						window.location.href = '/return';
+					}).fail(function(jqXHR, textStatus, errorThrown) {
+						// Handle AJAX request failure
+						alert('Failed to send request: ' + textStatus);
+					});
 
+					$('#confirmationModal').modal('hide');
+				});
+			});
+		});
+	</script>
 </body>
-
 </html>

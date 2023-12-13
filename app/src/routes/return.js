@@ -1,41 +1,58 @@
-import express from "express";
-import { updateSql } from "../database/sql";
-import { exec } from "child_process";
+import express from 'express';
+import { updateSql, selectSql } from '../database/sql';
+import { exec } from 'child_process';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.render('return');
+    const rentalID = req.session.rentalID;
+    res.render('return', { rentalID: rentalID });
 });
 
-
-// "return" 버튼 클릭 시 호출될 라우트
 router.post('/', async (req, res) => {
     try {
-        console.log('End Rental Request:', req.body);
         const { rentalID } = req.body;
 
-        // 대여 종료 시간을 업데이트
+        // Update the end time for the rental
         await updateSql.endRental(rentalID);
 
-        // DriveList 테이블의 RentalTime 업데이트 (임의의 값 60으로 고정)
-        await updateSql.updateDriveListRentalTime(rentalID, 60); // 60 분으로 고정
+        // Fetch the start and end times for the rental
+        const rentalInfo = await selectSql.getRentalTimes(rentalID);
+        if (!rentalInfo) {
+            return res.status(500).json({ message: 'Rental information not found' });
+        }
 
-        console.log('Rental successfully ended and DriveList updated');
-        res.send('Rental ended and DriveList updated successfully');
+        // Fetch sensor data between the start and end times
+        const sensorData = await selectSql.getSensorData(rentalInfo.startTime, rentalInfo.endTime, rentalInfo.carName);
 
-        // 파이썬 스크립트 실행
-        exec('model\\zigzag.py', (error, stdout, stderr) => {
+        // Check if sensor data is empty
+        if (!sensorData || sensorData.length === 0) {
+            return res.json({ message: 'No sensor data available for analysis', rentalID: rentalID });
+        }
+
+        // Convert sensor data to a format suitable for the Python script
+        const sensorDataString = JSON.stringify(sensorData);
+
+        // Execute the Python script with the sensor data
+        exec(`python model\\zigzag.py "${sensorDataString}"`, (error, stdout, stderr) => {
             if (error) {
                 console.error('Error executing Python script:', error);
+                return res.status(500).json({ message: 'Error executing Python analysis', error: error.message });
             } else {
                 console.log('Python script executed successfully');
-                console.log('Python script output:', stdout);
+                const pythonOutput = JSON.parse(stdout);
+                res.json({
+                    message: 'Rental ended and DriveList updated successfully',
+                    rentalID: rentalID,
+                    pythonOutput: pythonOutput
+                });
             }
         });
     } catch (error) {
         console.error('Error in endRental:', error);
-        res.status(500).send('Error ending rental and updating DriveList: ' + error.message);
+        res.status(500).json({ message: 'Error ending rental and processing data', error: error.message });
     }
 });
+
+
 module.exports = router;
