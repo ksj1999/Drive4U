@@ -57,4 +57,6 @@ output = {
     "rapid_acceleration_count": rapid_accel_count,
     "rapid_deceleration_count": rapid_decel_count
 }
+
+# Log the output
 print(json.dumps(output))

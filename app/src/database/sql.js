@@ -131,6 +131,28 @@ export const selectSql = {
         }
     },
 
+    getSensorData: async (startTime, endTime) => {
+        const sensorID = 1; // Constant sensorID
+        const carName = 'Car1'; // Constant carName
+
+        const sql = `
+            SELECT SD.*
+            FROM SensorData SD
+            INNER JOIN Rentals R ON R.CarName = ?
+            INNER JOIN CarSensorLinks CSL ON CSL.SensorID = ? AND CSL.CarName = R.CarName
+            WHERE SD.time BETWEEN R.StartTime AND R.EndTime
+            AND R.StartTime >= ? AND R.EndTime <= ?;
+        `;
+        try {
+            const [result] = await promisePool.query(sql, [carName, sensorID, startTime, endTime]);
+            return result;
+        } catch (error) {
+            console.error('Error fetching sensor data:', error.message);
+            throw error;
+        }
+    },
+    
+
 }
 
 // insert query

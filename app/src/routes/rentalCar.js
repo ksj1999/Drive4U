@@ -1,7 +1,6 @@
 import express from "express";
-import { insertSql} from "../database/sql";
-import { updateSql } from "../database/sql";
-import { exec } from "child_process";
+import { insertSql } from "../database/sql";
+
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -13,11 +12,12 @@ router.get('/', (req, res) => {
 router.post('/startRental', async (req, res) => {
     try {
         console.log('Start Rental Request Received:', req.body);
-        const { customerID, carName } = req.body;
-        const result = await insertSql.startRental({ CustomerID: customerID, CarName: carName });
-        console.log('Rental started:', result);
+        const { CustomerID, CarName } = req.body;
+        const result = await insertSql.startRental({ CustomerID: CustomerID, CarName: CarName });
+        const rentalID = result.insertId; // 새로 생성된 RentalID를 가져옵니다.
+        req.session.rentalID = rentalID; // 세션에 RentalID 저장
 
-        // Redirect to the "return" page after a successful rental
+        console.log('Rental started with RentalID:', rentalID);
         res.redirect('/return');
     } catch (error) {
         console.error('Error starting rental:', error);
