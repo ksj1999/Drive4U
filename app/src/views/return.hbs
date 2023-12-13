@@ -106,22 +106,35 @@
         </footer><!--/.contact-->
 <script>
     $(document).ready(function() {
-        $('#rentend').click(function() {
-            // rentend 버튼 클릭 시 실행할 AJAX 요청
-            $.post('/return', {
-                rentalID: 1 // 예시 데이터, 실제로는 적절한 데이터를 사용해야 함
-            }, function(response) {
-                // 서버 응답 메시지를 알림으로 표시
-                alert(response);
+        var rentalID = '{{rentalID}}';
 
-                // 서버 응답에 따라 customerMain으로 이동
-                if (response === 'Rental ended and DriveList updated successfully') {
-                    window.location.href = '/customerMain';
+        $('#rentend').click(function() {
+            $.post('/return', { rentalID: rentalID }, function(response) {
+                let alertMessage = 'Rental ID: ' + response.rentalID + 
+                                    '\nRental Time: ' + response.rentalTime + ' minutes';
+
+                if (response.pythonOutput) {
+                    alertMessage += '\nReckless Driving Count: ' + response.pythonOutput.recklessDriving +
+                                    '\nSudden Accelerations: ' + response.pythonOutput.suddenAccel +
+                                    '\nRapid Decelerations: ' + response.pythonOutput.rapidDecel;
                 }
+
+                alertMessage += '\n\n' + response.message;
+                alert(alertMessage);
+
+                // Redirect to customerMain after showing the alert
+                window.location.href = '/customerMain';
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                alert('Failed to send request: ' + textStatus);
+                // Redirect even if the request fails
+                window.location.href = '/customerMain';
             });
         });
     });
 </script>
+
+
 
     <!-- Include all JS compiled plugins (below), or include individual files as needed -->
     <script src="js/jquery.js"></script>

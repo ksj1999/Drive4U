@@ -1,6 +1,7 @@
 import express from "express";
 import { insertSql} from "../database/sql";
-
+import { updateSql } from "../database/sql";
+import { exec } from "child_process";
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -16,15 +17,12 @@ router.post('/startRental', async (req, res) => {
         const result = await insertSql.startRental({ CustomerID: customerID, CarName: carName });
         console.log('Rental started:', result);
 
-        // Choose either sending a response or redirecting
-        res.send('Rental started successfully');
+        // Redirect to the "return" page after a successful rental
+        res.redirect('/return');
     } catch (error) {
         console.error('Error starting rental:', error);
         res.status(500).send('Error starting rental: ' + error.message);
     }
 });
 
-
 export default router;
-
-module.exports = router;
