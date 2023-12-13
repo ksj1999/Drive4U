@@ -13,6 +13,17 @@ RAPID_DECEL_THRESHOLD = -2.0  # m/s^2
 def calculate_roll(ax, ay, az):
     return math.degrees(math.atan2(ay, az))
 
+# Function to calculate distance using numerical integration
+def calculate_distance(sensor_data):
+    if len(sensor_data) > 0:
+        velocity = sensor_data.cumsum()  # 누적 합계로 속도 추정
+        distance = velocity.cumsum()  # 속도의 누적 합계로 거리 추정
+        total_distance = np.sqrt((distance ** 2).sum(axis=1)).iloc[-1]  # 거리 벡터의 크기로 총 이동 거리 계산
+        return total_distance
+    else:
+        return 0  # 데이터가 없는 경우 0 반환
+
+
 # Read input data from command line argument
 input_data = sys.argv[1]
 
@@ -51,11 +62,15 @@ for i in range(1, len(sensor_data)):
     elif delta_ax < RAPID_DECEL_THRESHOLD or delta_ay < RAPID_DECEL_THRESHOLD or delta_az < RAPID_DECEL_THRESHOLD:
         rapid_decel_count += 1
 
+# Calculate total distance traveled
+total_distance = calculate_distance(sensor_data[['ax', 'ay', 'az']])
+
 # Output the results in JSON format
 output = {
     "reckless_driving_count": reckless_driving_count,
     "rapid_acceleration_count": rapid_accel_count,
-    "rapid_deceleration_count": rapid_decel_count
+    "rapid_deceleration_count": rapid_decel_count,
+    "total_distance": total_distance
 }
 
 # Log the output

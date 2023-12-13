@@ -34,7 +34,7 @@ export const selectSql = {
         const [result] = await promisePool.query(sql);
         return result;
     },
-//
+
     getDriveListRentalTime: async (rentalID) => {
         const sql = `
             SELECT RentalTime
@@ -242,6 +242,20 @@ export const insertSql = {
             throw error;
         }
     },
+
+    addDriveListRecord: async (customerID, rentalID, rentalTime, recklessDriving, suddenAccel, rapidDecel) => {
+        const sql = `
+            INSERT INTO DriveList (CustomerID, RentalID, RentalTime, RecklessDriving, SuddenAccel, RapidAccel)
+            VALUES (?, ?, ?, ?, ?, ?);
+        `;
+
+        try {
+            await promisePool.query(sql, [customerID, rentalID, rentalTime, recklessDriving, suddenAccel, rapidDecel]);
+        } catch (error) {
+            console.error('Error adding record to DriveList:', error.message);
+            throw error;
+        }
+    },
 };
 
 
@@ -298,6 +312,36 @@ export const updateSql = {
             await promisePool.query(sql, [rentalTime, recklessDriving, suddenAccel, rapidDecel, rentalID]);
         } catch (error) {
             console.error('Error updating DriveList:', error.message);
+            throw error;
+        }
+    },
+
+    updateCustomer: async (customerID, driveScore, driveTime) => {
+        const sql = `
+            UPDATE Customers
+            SET DriveScore = ?, DriveTime = ?
+            WHERE CustomerID = ?;
+        `;
+
+        try {
+            await promisePool.query(sql, [driveScore, driveTime, driveLevel, customerID]);
+        } catch (error) {
+            console.error('Error updating customer:', error.message);
+            throw error;
+        }
+    },
+
+    updateDriveListWithDistance: async (rentalID, actualDistance) => {
+        const sql = `
+            UPDATE DriveList
+            SET RentalDistance = ?
+            WHERE RentalID = ?;
+        `;
+
+        try {
+            await promisePool.query(sql, [actualDistance, rentalID]);
+        } catch (error) {
+            console.error('Error updating DriveList with actual distance:', error.message);
             throw error;
         }
     },
