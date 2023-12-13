@@ -7,8 +7,10 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const vars = req.body;
-        res.redirect('/customerMain');
+    res.send(`<script>
+                    alert('A new vehicle has been registered.');
+                    location.href='/adminMain';
+                </script>`);
 });
 
 module.exports = router;
