@@ -120,18 +120,20 @@
                 }
 
                 alertMessage += '\n\n' + response.message;
-
                 alert(alertMessage);
 
-                // Redirect to customerMain after showing the alert, regardless of the message
+                // Redirect to customerMain after showing the alert
                 window.location.href = '/customerMain';
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 alert('Failed to send request: ' + textStatus);
+                // Redirect even if the request fails
+                window.location.href = '/customerMain';
             });
         });
     });
 </script>
+
 
 
     <!-- Include all JS compiled plugins (below), or include individual files as needed -->

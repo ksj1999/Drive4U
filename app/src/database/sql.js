@@ -111,6 +111,25 @@ export const selectSql = {
         }
     },
 
+    getSensorLink: async (carName) => {
+        const sql = `
+            SELECT SensorID
+            FROM CarSensorLinks
+            WHERE CarName = ?;
+        `;
+        try {
+            const [rows] = await promisePool.query(sql, [carName]);
+            if (rows.length > 0) {
+                return rows[0]; // Assuming there is only one sensor per car
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error('Error fetching sensor ID:', error.message);
+            throw error;
+        }
+    },
+
 }
 
 // insert query

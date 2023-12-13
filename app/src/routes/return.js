@@ -40,12 +40,17 @@ router.post('/', async (req, res) => {
                 return res.status(500).json({ message: 'Error executing Python analysis', error: error.message });
             } else {
                 console.log('Python script executed successfully');
-                const pythonOutput = JSON.parse(stdout);
-                res.json({
-                    message: 'Rental ended and DriveList updated successfully',
-                    rentalID: rentalID,
-                    pythonOutput: pythonOutput
-                });
+                try {
+                    const pythonOutput = JSON.parse(stdout);
+                    res.json({
+                        message: 'Rental ended and DriveList updated successfully',
+                        rentalID: rentalID,
+                        pythonOutput: pythonOutput
+                    });
+                } catch (parseError) {
+                    console.error('Error parsing Python output:', parseError);
+                    res.status(500).json({ message: 'Error parsing Python script output', error: parseError.message });
+                }
             }
         });
     } catch (error) {
@@ -53,6 +58,5 @@ router.post('/', async (req, res) => {
         res.status(500).json({ message: 'Error ending rental and processing data', error: error.message });
     }
 });
-
 
 module.exports = router;
