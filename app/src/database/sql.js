@@ -34,7 +34,7 @@ export const selectSql = {
         const [result] = await promisePool.query(sql);
         return result;
     },
-
+//
     getDriveListRentalTime: async (rentalID) => {
         const sql = `
             SELECT RentalTime
