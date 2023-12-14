@@ -140,6 +140,26 @@ export const selectSql = {
             throw error;
         }
     },
+
+    getCustomerDriveInfo: async (customerID) => {
+        const sql = `
+            SELECT DriveScore
+            FROM Customers
+            WHERE CustomerID = ?;
+        `;
+
+        try {
+            const [rows] = await promisePool.query(sql, [customerID]);
+            if (rows.length > 0) {
+                return rows[0]; // 첫 번째 행 반환
+            } else {
+                return null; // 고객 정보가 없는 경우
+            }
+        } catch (error) {
+            console.error('Error fetching customer drive info:', error.message);
+            throw error;
+        }
+    },
     
 }
 // insert query

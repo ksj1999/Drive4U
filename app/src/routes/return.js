@@ -54,31 +54,31 @@ router.post('/', async (req, res) => {
             }
             try {
                 const output = JSON.parse(pythonOutput);
-                
-                // DriveList 테이블 업데이트
-                const recklessDriving = output.reckless_driving_count; // 예시 데이터
-                const suddenAccel = output.sudden_acceleration_count;  // 예시 데이터
-                const rapidDecel = output.rapid_deceleration_count;     // 예시 데이터
-                const RentalDistance = output.total_distance;           // 예시 데이터
 
+                // Update DriveList table
                 await updateSql.updateDriveList({
                     rentalID, 
                     rentalTime, 
-                    recklessDriving, 
-                    suddenAccel, 
-                    rapidDecel,
-                    RentalDistance
+                    recklessDriving: output.reckless_driving_count, 
+                    suddenAccel: output.sudden_acceleration_count, 
+                    rapidDecel: output.rapid_deceleration_count,
+                    RentalDistance: output.total_distance
                 });
 
-                // 고객 정보 업데이트 (DriveTime과 DriveScore)
-                const customerID = req.session.customerID; // 세션에서 customerID 가져오기
+                // Update Customer info (DriveTime and DriveScore)
+                const customerID = req.session.customerID;
                 await updateSql.updateCustomerDriveInfo(customerID);
+
+                // Fetch updated DriveScore
+                const customerInfo = await selectSql.getCustomerDriveInfo(customerID);
+                const driveScore = customerInfo ? customerInfo.DriveScore : null;
 
                 res.json({
                     message: 'Rental ended, DriveList and Customer data updated successfully',
                     rentalID: rentalID,
                     rentalTime: rentalTime,
-                    RentalDistance: RentalDistance,
+                    RentalDistance: output.total_distance,
+                    driveScore: driveScore,
                     pythonOutput: output
                 });
 
