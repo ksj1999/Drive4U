@@ -7,9 +7,7 @@ const pool = mysql.createPool({
     password: 'advantechlove1234',
     database: 'Drive4U',
 });
-
 const promisePool = pool.promise();
-
 //total applyquery
 export const ApplyQuery = {
     applyquery: async(Query) => {
@@ -18,7 +16,6 @@ export const ApplyQuery = {
         return result;
     },
 }
-
 //select query
 export const selectSql = {
     getEmployees: async () => {
@@ -53,7 +50,6 @@ export const selectSql = {
             throw error;
         }
     },
-
     getRentalTimes: async (rentalID) => {
         const sql = `
             SELECT StartTime, EndTime, CarName
@@ -72,7 +68,6 @@ export const selectSql = {
             throw error;
         }
     },
-
     getSensorData: async (startTime, endTime, carName) => {
         const sql = `
             SELECT SD.time, SD.ax, SD.ay, SD.az, SD.gx, SD.gy, SD.gz
@@ -108,7 +103,6 @@ export const selectSql = {
             throw error;
         }
     },
-
     getSensorLink: async (carName) => {
         const sql = `
             SELECT SensorID
@@ -127,9 +121,27 @@ export const selectSql = {
             throw error;
         }
     },
-
+    getSensorData: async (startTime, endTime) => {
+        const sensorID = 1; // Constant sensorID
+        const carName = 'Car1'; // Constant carName
+        const sql = `
+            SELECT SD.*
+            FROM SensorData SD
+            INNER JOIN Rentals R ON R.CarName = ?
+            INNER JOIN CarSensorLinks CSL ON CSL.SensorID = ? AND CSL.CarName = R.CarName
+            WHERE SD.time BETWEEN R.StartTime AND R.EndTime
+            AND R.StartTime >= ? AND R.EndTime <= ?;
+        `;
+        try {
+            const [result] = await promisePool.query(sql, [carName, sensorID, startTime, endTime]);
+            return result;
+        } catch (error) {
+            console.error('Error fetching sensor data:', error.message);
+            throw error;
+        }
+    },
+    
 }
-
 // insert query
 export const insertSql = {
     setEmployee: async (data) => {
@@ -138,28 +150,24 @@ export const insertSql = {
             VALUES (?, ?, ?, ?, NOW());
         `;
         console.log(data);
-
         try {
             await promisePool.query(sql, [data.EmployeeId, data.Password, data.Name, data.Email]);
         } catch (error) {
             console.error('Error inserting employee:', error.message);
         }
     },
-
     setCustomer: async (data) => {
         const sql = `
             INSERT INTO Customers(CustomerId, Password, Name, Email, RegDate)
             VALUES (?, ?, ?, ?, NOW());
         `;
         console.log(data);
-
         try {
             await promisePool.query(sql, [data.CustomerId, data.Password, data.Name, data.Email]);
         } catch (error) {
             console.error('Error inserting customer:', error.message);
         }
     },
-
     setCar: async (data) => {
         const sql = `
             INSERT INTO Cars(CarName, CarType, CarPrice, RegDate)
@@ -187,7 +195,6 @@ export const insertSql = {
             throw error; 
         }
     },
-
     setSensor:async (data) => {
         const sql = `insert into sensordata values ( 1,
             now(), ${data.ax}, ${data.ay},${data.az},
@@ -195,48 +202,29 @@ export const insertSql = {
             ${data.decibel}, ${data.temp}, ${data.humi}
         )`
         console.log(data);
-
         try {
           await promisePool.query(sql);
         } catch (error) {
             console.error('Error inserting sensor data:', error.message);
         }
     },
-
-    // 임시페이지에서 start
     startRental: async (data) => {
         const sql = `
             INSERT INTO Rentals(CustomerID, CarName, StartTime)
             VALUES (?, ?, NOW());
         `;
-
+    
         try {
-            await promisePool.query(sql, [data.CustomerID, data.CarName]);
+            const [result] = await promisePool.query(sql, [data.CustomerID, data.CarName]);
+            return result; // 쿼리 결과 반환 (insertId 포함)
         } catch (error) {
             console.error('Error starting rental:', error.message);
             throw error;
         }
     },
-
-    addDriveListRecord: async (customerID, rentalID, rentalTime, recklessDriving, suddenAccel, rapidDecel) => {
-        const sql = `
-            INSERT INTO DriveList (CustomerID, RentalID, RentalTime, RecklessDriving, SuddenAccel, RapidAccel)
-            VALUES (?, ?, ?, ?, ?, ?);
-        `;
-
-        try {
-            await promisePool.query(sql, [customerID, rentalID, rentalTime, recklessDriving, suddenAccel, rapidDecel]);
-        } catch (error) {
-            console.error('Error adding record to DriveList:', error.message);
-            throw error;
-        }
-    },
 };
-
-
 // update query
 export const updateSql = {
-
     //임시 페이지에서 종료
     endRental: async (rentalID) => {
         const sql = `
@@ -244,7 +232,6 @@ export const updateSql = {
             SET EndTime = NOW()
             WHERE RentalID = ?;
         `;
-
         try {
             await promisePool.query(sql, [rentalID]);
         } catch (error) {
@@ -252,7 +239,6 @@ export const updateSql = {
             throw error;
         }
     },
-
     updateDriveListRentalTime: async (rentalID) => {
         const sql = `
             UPDATE DriveList
@@ -261,11 +247,15 @@ export const updateSql = {
                 (SELECT EndTime FROM Rentals WHERE RentalID = ?))
             WHERE RentalID = ?;
         `;
-    
         try {
+            console.log('Updating DriveList RentalTime for RentalID:', rentalID); // Debug
             const [result] = await promisePool.query(sql, [rentalID, rentalID, rentalID]);
-            console.log('SQL Query:', sql);
-            console.log('DriveList RentalTime Updated:', result);
+            console.log('SQL Query:', sql); // Debug
+            console.log('DriveList RentalTime Updated:', result); // Debug
+            // Check if any rows were affected
+            if (result.affectedRows === 0) {
+                console.log('No rows updated in DriveList for RentalID:', rentalID); // Debug
+            }
         } catch (error) {
             console.error('Error updating DriveList rental time:', error.message);
             throw error;
