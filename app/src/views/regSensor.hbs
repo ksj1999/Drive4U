@@ -162,67 +162,56 @@
         <!-- Top-area End -->
     </section><!--/.welcome-hero-->
     <!-- Welcome-hero end -->
-
-	
 <div style="margin-top:100px"></div>
 
+ <!-- QR Scan Section -->
+    <section class="about_section layout_padding long_section">
+        <div class="container">
+            <div class="main_page">
+                <main>
+                    <!-- Button to open the webcam -->
+                    <input type="button" id="button1" onclick="openCamera();" value="Open WebCam" />
 
-<!-- qr scan section -->
-  <section class="about_section layout_padding long_section">
-    <div class="container">
-		<div class="main_page">
-			<main>
-				<input type="button" id="button1" onclick="openCamera();" value="Open WebCam"/>
-					<div id="frame">
-						<div id="loadingMessage">
-							Cannot Accecc Vidieo Stream!<br/>
-							Press the 'Open WebCam' button
-						</div>
-					<canvas id="canvas"></canvas>
-					</div>
-				<div id="test">
-				<h3> QR Sacn Result</h3>
-				<br/>
-					<div id="output">
-						<div id="outputMessage"></div>
-						<div id="outputLayer" hidden>
-						<span id="outputData"></span>
-						</div>
-					</div>
-				</div>
-				<br/>
-				 <div class="btn-box">
-					<a href="/adminMain" class="btn1">
-                        Register Sensor
-                	</a>
-				 </div>
-			</main>
-		</div>
-	</div>
-	</section>
+                    <!-- QR Code scanning elements -->
+                    <div id="frame">
+                        <div id="loadingMessage">
+                            Cannot Access Video Stream!<br />
+                            Press the 'Open WebCam' button
+                        </div>
+                        <canvas id="canvas"></canvas>
+                    </div>
 
-	<!--contact start-->
-		<footer id="contact"  class="contact">
-			<div id="scroll-Top">
-				<div class="return-to-top">
-					<i class="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
-				</div>
-			</div><!--/.scroll-Top-->
-        </footer><!--/.contact-->
-		
-    <!-- Include all JS compiled plugins (below), or include individual files as needed -->
+                    <!-- QR Code result display -->
+                    <div id="test">
+                        <h3> QR Scan Result</h3>
+                        <div id="output">
+                            <div id="outputMessage"></div>
+                            <div id="outputLayer" hidden>
+                                <span id="outputData"></span>
+                            </div>
+                        </div>
+                    </div>
+
+					<div style="margin-top:20px"></div>
+                    <!-- Form to register a sensor -->
+                    <form id="sensor" method="post" action="/regSensor">
+                        <div class="btn-box">
+                            <button type="submit" class="btn1">Register Sensor</button>
+                        </div>
+                    </form>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include your footer here -->
+
+    <!-- JavaScript Libraries -->
     <script src="js/jquery.js"></script>
-    <!--modernizr.min.js-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-    <!--bootstrap.min.js-->
     <script src="js/bootstrap.min.js"></script>
-    <!-- Bootsnav JS -->
     <script src="js/bootsnav.js"></script>
-    <!-- Owl.carousel.js -->
     <script src="js/owl.carousel.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <!-- Custom JS -->
     <script src="js/custom.js"></script>
 </body>
-
 </html>

@@ -3,13 +3,12 @@ import mysql from 'mysql2';
 require("dotenv").config();
 
 const pool = mysql.createPool({
-    host: '210.111.178.93',
+    host: 'localhost',
     port: 3306,
-    user: 'dungdung2',
-    password: 'advantechlove1234',
+    user: 'root',
+    password: 'gging00100!',
     database: 'Drive4U',
 });
-
 
 const promisePool = pool.promise();
 
@@ -131,28 +130,6 @@ export const selectSql = {
         }
     },
 
-    getSensorData: async (startTime, endTime) => {
-        const sensorID = 1; // Constant sensorID
-        const carName = 'Car1'; // Constant carName
-
-        const sql = `
-            SELECT SD.*
-            FROM SensorData SD
-            INNER JOIN Rentals R ON R.CarName = ?
-            INNER JOIN CarSensorLinks CSL ON CSL.SensorID = ? AND CSL.CarName = R.CarName
-            WHERE SD.time BETWEEN R.StartTime AND R.EndTime
-            AND R.StartTime >= ? AND R.EndTime <= ?;
-        `;
-        try {
-            const [result] = await promisePool.query(sql, [carName, sensorID, startTime, endTime]);
-            return result;
-        } catch (error) {
-            console.error('Error fetching sensor data:', error.message);
-            throw error;
-        }
-    },
-    
-
 }
 
 // insert query
@@ -228,15 +205,15 @@ export const insertSql = {
         }
     },
 
+    // 임시페이지에서 start
     startRental: async (data) => {
         const sql = `
             INSERT INTO Rentals(CustomerID, CarName, StartTime)
             VALUES (?, ?, NOW());
         `;
-    
+
         try {
-            const [result] = await promisePool.query(sql, [data.CustomerID, data.CarName]);
-            return result; // 쿼리 결과 반환 (insertId 포함)
+            await promisePool.query(sql, [data.CustomerID, data.CarName]);
         } catch (error) {
             console.error('Error starting rental:', error.message);
             throw error;
@@ -286,16 +263,11 @@ export const updateSql = {
                 (SELECT EndTime FROM Rentals WHERE RentalID = ?))
             WHERE RentalID = ?;
         `;
-
+    
         try {
-            console.log('Updating DriveList RentalTime for RentalID:', rentalID); // Debug
             const [result] = await promisePool.query(sql, [rentalID, rentalID, rentalID]);
-            console.log('SQL Query:', sql); // Debug
-            console.log('DriveList RentalTime Updated:', result); // Debug
-            // Check if any rows were affected
-            if (result.affectedRows === 0) {
-                console.log('No rows updated in DriveList for RentalID:', rentalID); // Debug
-            }
+            console.log('SQL Query:', sql);
+            console.log('DriveList RentalTime Updated:', result);
         } catch (error) {
             console.error('Error updating DriveList rental time:', error.message);
             throw error;
@@ -316,36 +288,6 @@ export const updateSql = {
             await promisePool.query(sql, [rentalTime, recklessDriving, suddenAccel, rapidDecel, RentalDistance, rentalID]);
         } catch (error) {
             console.error('Error updating DriveList:', error.message);
-            throw error;
-        }
-    },
-
-    updateCustomer: async (customerID, driveScore, driveTime) => {
-        const sql = `
-            UPDATE Customers
-            SET DriveScore = ?, DriveTime = ?
-            WHERE CustomerID = ?;
-        `;
-
-        try {
-            await promisePool.query(sql, [driveScore, driveTime, driveLevel, customerID]);
-        } catch (error) {
-            console.error('Error updating customer:', error.message);
-            throw error;
-        }
-    },
-
-    updateDriveListWithDistance: async (rentalID, actualDistance) => {
-        const sql = `
-            UPDATE DriveList
-            SET RentalDistance = ?
-            WHERE RentalID = ?;
-        `;
-
-        try {
-            await promisePool.query(sql, [actualDistance, rentalID]);
-        } catch (error) {
-            console.error('Error updating DriveList with actual distance:', error.message);
             throw error;
         }
     },

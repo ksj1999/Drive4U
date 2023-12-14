@@ -17,23 +17,32 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/icon" href="logo/favicon.png" />
+
     <!-- Font-awesome.min.css -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
+
     <!-- Linear icon CSS -->
     <link rel="stylesheet" href="css/linearicons.css">
+
     <!-- Flaticon.css -->
     <link rel="stylesheet" href="css/flaticon.css">
+
     <!-- Animate.css -->
     <link rel="stylesheet" href="css/animate.css">
+
     <!-- Owl.carousel.css -->
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
     <!-- Bootstrap.min.css -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
+
     <!-- Bootsnav -->
     <link rel="stylesheet" href="css/bootsnav.css">
+
     <!-- Style.css -->
     <link rel="stylesheet" href="css/style.css">
+
     <!-- Responsive.css -->
     <link rel="stylesheet" href="css/responsive.css">
 </head>
@@ -71,56 +80,33 @@
         <!-- Top-area End -->
     </section><!--/.welcome-hero-->
     <!-- Welcome-hero end -->
-
-<!--service start -->
-<section id="service" class="service">
-    <div class="container">
-        <div class="section-header" style="margin:0 0 70px auto;">
-                <h2>Main</h2>
+    
+    <!-- New-cars section -->
+    <section id="new-cars" class="new-cars">
+        <div class="container">
+            <div class="section-header">
+                <h2>Reporting<p></p>Vehicle Breakdown</h2>
             </div>
-        <div class="service-content">
-            <div class="row">
+    <div style="margin-top: 100px">
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-service-item">
-                        <div class="single-service-icon">
-                            <i class="flaticon-car"></i>
-                        </div>
-                        <h2><a href="/rentalCar">Rental Car</a></h2>
-                    </div>
-                </div>
+    </div>
+            <div id="reportForm" style="display: block;">
+                <form id="user" method="post" action='/report'>
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-service-item">
-                        <div class="single-service-icon">
-                            <i class="flaticon-car-1"></i>
-                        </div>
-                        <h2>
-                            <a href="https://dashboard-trainingapps-eks004.sa.wise-paas.com/d/Q0hhPtHIk/drive4u_company?orgId=2300&from=1697767327000&to=1700625580000">
-                                My Driving Solution
-                            </a>
-                        </h2>
-                    </div>
-                </div>
+                    <label for="phone">PhoneNumber</label>
+                    <input id="phone" name="phone" type="phone" required placeholder="Your PhoneNumber">
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-service-item">
-                        <div class="single-service-icon">
-                            <i class="flaticon-car-repair"></i>
-                        </div>
-                        <h2>
-                            <a href="/report">
-                                Reporting Vehicle Breakdown
-                            </a>
-                        </h2>
-                    </div>
-                </div>
-
+                    <label for="memo">Details of accidents and malfunctions</label>
+                    <input id="passwd" name='password' type="password" required placeholder="Please describe in detail.">
+                    <button type="submit" class="btn1">SEND</button>
+                </form>
             </div>
+          </div>
         </div>
-    </div><!--/.container-->
-</section><!--/.service-->
-<!--service end-->
+      </div>
+    </div>
+  </section>
+    <!-- end contact section -->
 
 	<!--contact start-->
 		<footer id="contact"  class="contact">
@@ -130,7 +116,7 @@
 				</div>
 			</div><!--/.scroll-Top-->
         </footer><!--/.contact-->
-
+        
     <!-- Include all JS compiled plugins (below), or include individual files as needed -->
     <script src="js/jquery.js"></script>
     <!--modernizr.min.js-->
@@ -147,4 +133,3 @@
 </body>
 
 </html>
-
