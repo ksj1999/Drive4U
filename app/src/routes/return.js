@@ -55,13 +55,12 @@ router.post('/', async (req, res) => {
             try {
                 const output = JSON.parse(pythonOutput);
                 
-                // 업데이트 로직
+                // DriveList 테이블 업데이트
                 const recklessDriving = output.reckless_driving_count; // 예시 데이터
                 const suddenAccel = output.sudden_acceleration_count;  // 예시 데이터
                 const rapidDecel = output.rapid_deceleration_count;     // 예시 데이터
                 const RentalDistance = output.total_distance;           // 예시 데이터
 
-                // DriveList 테이블 업데이트
                 await updateSql.updateDriveList({
                     rentalID, 
                     rentalTime, 
@@ -70,6 +69,10 @@ router.post('/', async (req, res) => {
                     rapidDecel,
                     RentalDistance
                 });
+
+                // 고객 정보 업데이트 (DriveTime과 DriveScore)
+                const customerID = req.session.customerID; // 세션에서 customerID 가져오기
+                await updateSql.updateCustomerDriveInfo(customerID);
 
                 res.json({
                     message: 'Rental ended, DriveList and Customer data updated successfully',
