@@ -33,6 +33,103 @@ export const selectSql = {
         const [result] = await promisePool.query(sql);
         return result;
     },
+
+    getDriveListRentalTime: async (rentalID) => {
+        const sql = `
+            SELECT RentalTime
+            FROM DriveList 
+            WHERE RentalID = ?;
+        `;
+        try {
+            console.log('Fetching rental time for RentalID:', rentalID); // Debug
+            const [rows] = await promisePool.query(sql, [rentalID]);
+            console.log('Query result:', rows); // Debug
+            if (rows.length > 0) {
+                return rows[0].RentalTime;
+            } else {
+                console.log('No rental time found for RentalID:', rentalID); // Debug
+                return null;
+            }
+        } catch (error) {
+            console.error('Error fetching rental time from DriveList:', error.message);
+            throw error;
+        }
+    },
+
+    getRentalTimes: async (rentalID) => {
+        const sql = `
+            SELECT StartTime, EndTime, CarName
+            FROM Rentals
+            WHERE RentalID = ?;
+        `;
+        try {
+            const [result] = await promisePool.query(sql, [rentalID]);
+            if (result.length > 0) {
+                return result[0];
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error('Error fetching rental times:', error.message);
+            throw error;
+        }
+    },
+
+    getSensorData: async (startTime, endTime, carName) => {
+        const sql = `
+            SELECT SD.time, SD.ax, SD.ay, SD.az, SD.gx, SD.gy, SD.gz
+            FROM SensorData SD
+            INNER JOIN CarSensorLinks CSL ON SD.SensorID = CSL.SensorID
+            WHERE CSL.CarName = ? AND SD.time BETWEEN ? AND ?;
+        `;
+        try {
+            const [result] = await promisePool.query(sql, [carName, startTime, endTime]);
+            return result;
+        } catch (error) {
+            console.error('Error fetching sensor data:', error.message);
+            throw error;
+        }
+    },
+    
+    getRentalInfo: async (rentalID) => {
+        const sql = `
+            SELECT StartTime, EndTime, CarName
+            FROM Rentals
+            WHERE RentalID = ?;
+        `;
+        try {
+            const [rows] = await promisePool.query(sql, [rentalID]);
+            if (rows.length > 0) {
+                return rows[0]; // Assuming there's only one row per RentalID
+            } else {
+                console.log('No rental info found for RentalID:', rentalID);
+                return null;
+            }
+        } catch (error) {
+            console.error('Error fetching rental info:', error.message);
+            throw error;
+        }
+    },
+
+    getSensorLink: async (carName) => {
+        const sql = `
+            SELECT SensorID
+            FROM CarSensorLinks
+            WHERE CarName = ?;
+        `;
+        try {
+            const [rows] = await promisePool.query(sql, [carName]);
+            if (rows.length > 0) {
+                return rows[0]; // Assuming there is only one sensor per car
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error('Error fetching sensor ID:', error.message);
+            throw error;
+        }
+    },
+
 }
 
 // insert query
@@ -122,6 +219,20 @@ export const insertSql = {
             throw error;
         }
     },
+
+    addDriveListRecord: async (customerID, rentalID, rentalTime, recklessDriving, suddenAccel, rapidDecel) => {
+        const sql = `
+            INSERT INTO DriveList (CustomerID, RentalID, RentalTime, RecklessDriving, SuddenAccel, RapidAccel)
+            VALUES (?, ?, ?, ?, ?, ?);
+        `;
+
+        try {
+            await promisePool.query(sql, [customerID, rentalID, rentalTime, recklessDriving, suddenAccel, rapidDecel]);
+        } catch (error) {
+            console.error('Error adding record to DriveList:', error.message);
+            throw error;
+        }
+    },
 };
 
 
@@ -162,5 +273,20 @@ export const updateSql = {
             throw error;
         }
     },
+    updateDriveList: async ({ rentalID, rentalTime, recklessDriving, suddenAccel, rapidDecel }) => {
+        const sql = `
+            UPDATE DriveList
+            SET RentalTime = ?, RecklessDriving = ?, SuddenAccel = ?, RapidAccel = ?
+            WHERE RentalID = ?;
+        `;
+    
+        try {
+            await promisePool.query(sql, [rentalTime, recklessDriving, suddenAccel, rapidDecel, rentalID]);
+        } catch (error) {
+            console.error('Error updating DriveList:', error.message);
+            throw error;
+        }
+    },
+    
     
 };
