@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const { rentalID } = req.body;
-
+        
         // Update the end time for the rental
         await updateSql.endRental(rentalID);
 
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
         const rentalTime = Math.floor((rentalEndTime - rentalStartTime) / (1000 * 60));
 
         // Fetch sensor data
-        const sensorData = await selectSql.getSensorData(rentalInfo.StartTime, rentalInfo.EndTime, "Car1", 1);
+        const sensorData = await selectSql.getSensorData(rentalInfo.StartTime, rentalInfo.EndTime, rentalInfo.CarName);
         if (!sensorData || sensorData.length === 0) {
             return res.json({ message: 'No sensor data available for analysis', rentalID: rentalID });
         }
@@ -54,11 +54,22 @@ router.post('/', async (req, res) => {
             }
             try {
                 const output = JSON.parse(pythonOutput);
-                const customerID = req.session.customerID;  // 예시로 세션에서 가져옴
+                
+                // 업데이트 로직
+                const recklessDriving = output.reckless_driving_count; // 예시 데이터
+                const suddenAccel = output.sudden_acceleration_count;  // 예시 데이터
+                const rapidDecel = output.rapid_deceleration_count;     // 예시 데이터
+                const RentalDistance = output.total_distance;           // 예시 데이터
 
-                // 여기에 실제 이동 거리 업데이트 로직 추가
-                const RentalDistance = output.total_distance;
-                await updateSql.updateDriveListWithDistance(rentalID, RentalDistance);
+                // DriveList 테이블 업데이트
+                await updateSql.updateDriveList({
+                    rentalID, 
+                    rentalTime, 
+                    recklessDriving, 
+                    suddenAccel, 
+                    rapidDecel,
+                    RentalDistance
+                });
 
                 res.json({
                     message: 'Rental ended, DriveList and Customer data updated successfully',
@@ -67,6 +78,7 @@ router.post('/', async (req, res) => {
                     RentalDistance: RentalDistance,
                     pythonOutput: output
                 });
+
             } catch (parseError) {
                 console.error('Error parsing Python script output:', parseError);
                 res.status(500).json({ message: 'Error parsing Python script output', error: parseError.message });

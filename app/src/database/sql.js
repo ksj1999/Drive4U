@@ -301,15 +301,19 @@ export const updateSql = {
             throw error;
         }
     },
-    updateDriveList: async ({ rentalID, rentalTime, recklessDriving, suddenAccel, rapidDecel }) => {
+    updateDriveList: async ({ rentalID, rentalTime, recklessDriving, suddenAccel, rapidDecel, RentalDistance }) => {
         const sql = `
             UPDATE DriveList
-            SET RentalTime = ?, RecklessDriving = ?, SuddenAccel = ?, RapidAccel = ?
+            SET RentalTime = ?, 
+                RecklessDriving = ?, 
+                SuddenAccel = ?, 
+                RapidAccel = ?, 
+                RentalDistance = ?
             WHERE RentalID = ?;
         `;
     
         try {
-            await promisePool.query(sql, [rentalTime, recklessDriving, suddenAccel, rapidDecel, rentalID]);
+            await promisePool.query(sql, [rentalTime, recklessDriving, suddenAccel, rapidDecel, RentalDistance, rentalID]);
         } catch (error) {
             console.error('Error updating DriveList:', error.message);
             throw error;

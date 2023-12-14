@@ -4,10 +4,12 @@ import math
 import json
 import sys
 
-# Thresholds for detection
-RECKLESS_TURN_THRESHOLD = 20  # degrees
+# Constants
+RECKLESS_TURN_THRESHOLD = 5  # degrees for direction change
 RAPID_ACCEL_THRESHOLD = 2.0  # m/s^2
 RAPID_DECEL_THRESHOLD = -2.0  # m/s^2
+TIME_INTERVAL = 20  # seconds
+GRAVITY = 9.8  # Earth's gravity in m/s^2
 
 # Function to calculate roll from accelerometer data
 def calculate_roll(ax, ay, az):
@@ -15,14 +17,13 @@ def calculate_roll(ax, ay, az):
 
 # Function to calculate distance using numerical integration
 def calculate_distance(sensor_data):
-    if len(sensor_data) > 0:
-        velocity = sensor_data.cumsum()  # 누적 합계로 속도 추정
-        distance = velocity.cumsum()  # 속도의 누적 합계로 거리 추정
-        total_distance = np.sqrt((distance ** 2).sum(axis=1)).iloc[-1]  # 거리 벡터의 크기로 총 이동 거리 계산
-        return total_distance
-    else:
-        return 0  # 데이터가 없는 경우 0 반환
-
+    # Convert g to m/s^2
+    sensor_data = sensor_data / GRAVITY
+    # Calculate velocity and distance
+    velocity = sensor_data * TIME_INTERVAL
+    distance = velocity.cumsum() * TIME_INTERVAL
+    total_distance = np.sqrt((distance ** 2).sum(axis=1)).iloc[-1]
+    return total_distance
 
 # Read input data from command line argument
 input_data = sys.argv[1]
@@ -34,36 +35,54 @@ except json.JSONDecodeError:
     print(json.dumps({"error": "Invalid sensor data format"}))
     sys.exit(1)
 
-# Check if the sensor data is empty
 if sensor_data.empty:
     print(json.dumps({"error": "No sensor data provided"}))
     sys.exit(1)
+
+# Convert data to numeric and handle non-numeric data
+sensor_data['ax'] = pd.to_numeric(sensor_data['ax'], errors='coerce')
+sensor_data['ay'] = pd.to_numeric(sensor_data['ay'], errors='coerce')
+sensor_data['az'] = pd.to_numeric(sensor_data['az'], errors='coerce')
 
 # Calculate roll for each row
 sensor_data['roll'] = sensor_data.apply(lambda row: calculate_roll(row['ax'], row['ay'], row['az']), axis=1)
 
 # Reckless Driving Count
-reckless_turn_count = sensor_data['roll'].abs() > RECKLESS_TURN_THRESHOLD
-reckless_driving_count = sum(reckless_turn_count)
+reckless_driving_count = 0
+turn_indices = sensor_data[sensor_data['roll'].abs() > RECKLESS_TURN_THRESHOLD].index
+total_distance = 0
+
+for i in range(1, len(turn_indices), 2):
+    if i + 1 < len(turn_indices):
+        start_idx, end_idx = turn_indices[i - 1], turn_indices[i + 1]
+        segment_data = sensor_data.iloc[start_idx:end_idx + 1][['ax', 'ay', 'az']]
+        segment_distance = calculate_distance(segment_data)
+        total_distance += segment_distance
+
+        start_pos = sensor_data.iloc[start_idx][['ax', 'ay', 'az']]
+        end_pos = sensor_data.iloc[end_idx][['ax', 'ay', 'az']]
+        straight_line_distance = np.linalg.norm(end_pos - start_pos)
+
+        if segment_distance > 2 * straight_line_distance:
+            reckless_driving_count += 1
 
 # Rapid Acceleration and Deceleration Count
 rapid_accel_count = 0
 rapid_decel_count = 0
 
 for i in range(1, len(sensor_data)):
-    # Calculate the change in acceleration
+    # Calculate change in acceleration for each axis
     delta_ax = sensor_data['ax'].iloc[i] - sensor_data['ax'].iloc[i-1]
     delta_ay = sensor_data['ay'].iloc[i] - sensor_data['ay'].iloc[i-1]
     delta_az = sensor_data['az'].iloc[i] - sensor_data['az'].iloc[i-1]
+    
+    # Calculate the magnitude of acceleration change
+    delta_v = np.linalg.norm([delta_ax, delta_ay, delta_az])
 
-    # Check for rapid acceleration/deceleration
-    if delta_ax > RAPID_ACCEL_THRESHOLD or delta_ay > RAPID_ACCEL_THRESHOLD or delta_az > RAPID_ACCEL_THRESHOLD:
+    if delta_v > RAPID_ACCEL_THRESHOLD:
         rapid_accel_count += 1
-    elif delta_ax < RAPID_DECEL_THRESHOLD or delta_ay < RAPID_DECEL_THRESHOLD or delta_az < RAPID_DECEL_THRESHOLD:
+    elif delta_v < RAPID_DECEL_THRESHOLD:
         rapid_decel_count += 1
-
-# Calculate total distance traveled
-total_distance = calculate_distance(sensor_data[['ax', 'ay', 'az']])
 
 # Output the results in JSON format
 output = {
