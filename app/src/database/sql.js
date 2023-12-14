@@ -279,6 +279,34 @@ export const updateSql = {
             throw error;
         }
     },
+
+    updateCustomerDriveInfo: async (customerID) => {
+        const sqlDriveTime = `
+            UPDATE Customers
+            SET DriveTime = (SELECT SUM(RentalTime) FROM DriveList WHERE CustomerID = ?)
+            WHERE CustomerID = ?;
+        `;
+
+        const sqlDriveScore = `
+            UPDATE Customers
+            SET DriveScore = 100 - (
+                (SELECT SUM(RecklessDriving + SuddenAccel + RapidAccel) FROM DriveList WHERE CustomerID = ?) / 
+                (SELECT SUM(RentalDistance) FROM DriveList WHERE CustomerID = ?) * 1000 * 10
+            )
+            WHERE CustomerID = ?;
+        `;
+
+        try {
+            // DriveTime 업데이트
+            await promisePool.query(sqlDriveTime, [customerID, customerID]);
+
+            // DriveScore 업데이트
+            await promisePool.query(sqlDriveScore, [customerID, customerID, customerID]);
+        } catch (error) {
+            console.error('Error updating customer drive info:', error.message);
+            throw error;
+        }
+    },
     
     
 };
