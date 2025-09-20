@@ -105,5 +105,3 @@ The system encourages safe driving by visualizing risky driving habits, lowering
 ## Acknowledgements  
 
 Developed as part of the **GeorgiaTech Vertically Integrated Projects** in collaboration with **Inha University**.  
-
-📌 **Project Link:** [Drive4U GitHub Repository](https://github.com/AdvantechPeterPet/Drive4U)  
